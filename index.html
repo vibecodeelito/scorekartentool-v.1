@@ -12,21 +12,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* =============================================
-           DESIGN SYSTEM
+           DESIGN TOKENS — Woodsmoke Dark Theme
         ============================================= */
         :root {
-            --black:       #0A0A0A;
-            --white:       #FAFAFA;
-            --surface:     #FFFFFF;
-            --gray-50:     #F6F6F6;
-            --gray-100:    #EBEBEB;
-            --gray-200:    #D4D4D4;
-            --gray-400:    #9A9A9A;
-            --gray-600:    #636363;
-            --gray-800:    #2A2A2A;
-            --accent:      #94C11F;
-            --accent-dark: #7AA819;
-            --accent-bg:   rgba(148, 193, 31, 0.10);
+            --bg:          #08090A;   /* Woodsmoke */
+            --bg-2:        #0D0F10;   /* slightly lifted surface */
+            --bg-3:        #131518;   /* card surface */
+            --bg-4:        #191C1F;   /* input / inner surface */
+            --border:      rgba(247, 248, 248, 0.07);
+            --border-mid:  rgba(247, 248, 248, 0.12);
+            --white:       #F7F8F8;   /* Black Haze — primary text */
+            --gray:        #8A8F98;   /* Oslo Gray — secondary text */
+            --gray-dim:    rgba(138, 143, 152, 0.55);
+            --accent:      #5E6AD2;   /* Linear Indigo */
+            --accent-dark: #4B57BF;
+            --accent-glow: rgba(94, 106, 210, 0.18);
+            --accent-bg:   rgba(94, 106, 210, 0.10);
             --nav-h:       64px;
             --r:           14px;
             --r-sm:        8px;
@@ -34,314 +35,196 @@
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
-
         body {
             font-family: 'Outfit', sans-serif;
-            background: var(--white);
-            color: var(--black);
+            background: var(--bg);
+            color: var(--white);
             min-height: 100vh;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
-
         ::selection { background: var(--accent); color: white; }
 
         /* =============================================
-           NAVIGATION — Glassmorphism Sticky Header
+           NAVIGATION — Dark Glassmorphism
         ============================================= */
         .nav {
             position: fixed;
             top: 0; left: 0; right: 0;
             height: var(--nav-h);
-            background: rgba(250, 250, 250, 0.82);
-            backdrop-filter: blur(28px) saturate(180%);
-            -webkit-backdrop-filter: blur(28px) saturate(180%);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            background: rgba(8, 9, 10, 0.75);
+            backdrop-filter: blur(28px) saturate(150%);
+            -webkit-backdrop-filter: blur(28px) saturate(150%);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
-            transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease);
+            transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease);
         }
         .nav.scrolled {
-            background: rgba(250, 250, 250, 0.97);
-            box-shadow: 0 1px 40px rgba(0, 0, 0, 0.06);
+            background: rgba(8, 9, 10, 0.96);
+            box-shadow: 0 1px 32px rgba(0, 0, 0, 0.4);
         }
-
         .nav-inner {
-            max-width: 1280px;
-            margin: 0 auto;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 36px;
+            max-width: 1280px; margin: 0 auto; height: 100%;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 36px;
         }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            text-decoration: none;
-            color: var(--black);
-        }
+        .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
         .nav-logo img { height: 30px; width: 30px; object-fit: contain; }
-        .nav-logo-text { font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; }
-
-        .nav-links {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-        }
+        .nav-logo-text { font-size: 0.9375rem; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+        .nav-links { display: flex; gap: 4px; }
         .nav-links a {
-            font-size: 0.875rem;
-            font-weight: 400;
-            color: var(--gray-600);
-            text-decoration: none;
-            padding: 6px 14px;
-            border-radius: 20px;
-            transition: all 0.2s ease;
+            font-size: 0.875rem; font-weight: 400; color: var(--gray);
+            text-decoration: none; padding: 6px 14px; border-radius: 20px; transition: all 0.2s ease;
         }
-        .nav-links a:hover { color: var(--black); background: var(--gray-100); }
-        .nav-links a.active { color: var(--black); font-weight: 500; }
-
+        .nav-links a:hover { color: var(--white); background: rgba(247,248,248,0.06); }
+        .nav-links a.active { color: var(--white); font-weight: 500; }
         .nav-right { display: flex; align-items: center; gap: 14px; }
-
-        .lang-switcher {
-            display: flex;
-            gap: 2px;
-            background: var(--gray-100);
-            border-radius: 20px;
-            padding: 3px;
-        }
+        .lang-switcher { display: flex; gap: 2px; background: rgba(247,248,248,0.06); border-radius: 20px; padding: 3px; }
         .lang-switcher a {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            color: var(--gray-600);
-            text-decoration: none;
-            padding: 4px 10px;
-            border-radius: 16px;
-            transition: all 0.2s ease;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; color: var(--gray);
+            text-decoration: none; padding: 4px 10px; border-radius: 16px; transition: all 0.2s ease;
         }
-        .lang-switcher a.active { background: var(--black); color: var(--white); }
-        .lang-switcher a:not(.active):hover { color: var(--black); }
-
-        /* Hamburger */
+        .lang-switcher a.active { background: var(--accent); color: white; }
+        .lang-switcher a:not(.active):hover { color: var(--white); }
         .hamburger-btn {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 6px;
-            flex-direction: column;
-            gap: 5px;
-            border-radius: var(--r-sm);
-            z-index: 1002;
+            display: none; background: none; border: none; cursor: pointer;
+            padding: 6px; flex-direction: column; gap: 5px; z-index: 1002;
         }
         .hamburger-btn span {
-            display: block;
-            width: 22px;
-            height: 1.5px;
-            background: var(--black);
-            transition: all 0.3s var(--ease);
-            transform-origin: center;
+            display: block; width: 22px; height: 1.5px; background: var(--white);
+            transition: all 0.3s var(--ease); transform-origin: center;
         }
         .hamburger-btn.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
         .hamburger-btn.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
         .hamburger-btn.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
         /* =============================================
-           MOBILE SLIDE MENU
+           MOBILE MENU
         ============================================= */
         .menu-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
         }
         .menu-overlay.active { opacity: 1; visibility: visible; }
-
         .slide-menu {
-            position: fixed;
-            top: 0; right: -320px;
-            width: 300px;
-            height: 100vh;
-            background: var(--black);
-            z-index: 1001;
-            transition: right 0.4s var(--ease);
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
+            background: #0D0F10;
+            border-left: 1px solid var(--border);
+            z-index: 1001; transition: right 0.4s var(--ease);
             padding: calc(var(--nav-h) + 28px) 24px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            overflow-y: auto;
+            display: flex; flex-direction: column; gap: 2px; overflow-y: auto;
         }
         .slide-menu.active { right: 0; }
-
         .menu-item {
-            display: block;
-            padding: 13px 16px;
-            color: rgba(255,255,255,0.55);
-            text-decoration: none;
-            font-size: 0.9375rem;
-            font-weight: 300;
-            border-radius: var(--r-sm);
-            transition: all 0.2s ease;
-            letter-spacing: -0.01em;
+            display: block; padding: 13px 16px; color: var(--gray);
+            text-decoration: none; font-size: 0.9375rem; font-weight: 300;
+            border-radius: var(--r-sm); transition: all 0.2s ease;
         }
-        .menu-item:hover, .menu-item.active-page {
-            color: white;
-            background: rgba(255,255,255,0.07);
-        }
-        .menu-divider {
-            height: 1px;
-            background: rgba(255,255,255,0.08);
-            margin: 10px 0;
-        }
-        .menu-lang {
-            display: flex;
-            gap: 8px;
-            padding: 16px;
-            margin-top: auto;
-        }
+        .menu-item:hover, .menu-item.active-page { color: var(--white); background: rgba(247,248,248,0.05); }
+        .menu-divider { height: 1px; background: var(--border); margin: 10px 0; }
+        .menu-lang { display: flex; gap: 8px; padding: 16px; margin-top: auto; }
         .menu-lang a {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            color: rgba(255,255,255,0.35);
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.12);
-            transition: all 0.2s ease;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; color: var(--gray);
+            text-decoration: none; padding: 6px 12px; border-radius: 20px;
+            border: 1px solid var(--border); transition: all 0.2s ease;
         }
-        .menu-lang a.active { color: white; border-color: rgba(255,255,255,0.5); }
+        .menu-lang a.active { color: white; border-color: var(--accent); background: var(--accent-bg); }
 
         /* =============================================
-           HERO SECTION
+           HERO — with background image + dark overlay
         ============================================= */
         .hero {
-            min-height: 100vh;
-            background: var(--black);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             position: relative;
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
             overflow: hidden;
-            padding: calc(var(--nav-h) + 40px) 32px 100px;
+            padding: calc(var(--nav-h) + 80px) 32px 100px;
+            background:
+                url('/scorekarte.ch/resources/hero.jpeg') center 40% / cover no-repeat;
         }
-        /* Dot grid */
+        /* Dark gradient overlay */
         .hero::before {
             content: '';
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px);
-            background-size: 44px 44px;
-            mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 0%, transparent 100%);
-            -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 0%, transparent 100%);
+            position: absolute; inset: 0; z-index: 1;
+            background:
+                linear-gradient(180deg,
+                    rgba(8,9,10,0.82) 0%,
+                    rgba(8,9,10,0.55) 45%,
+                    rgba(8,9,10,0.88) 100%);
         }
         /* Accent glow */
         .hero::after {
             content: '';
-            position: absolute;
-            top: -10%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(ellipse, rgba(148, 193, 31, 0.07) 0%, transparent 60%);
+            position: absolute; z-index: 1;
+            top: 10%; left: 50%; transform: translateX(-50%);
+            width: 700px; height: 700px;
+            background: radial-gradient(ellipse, rgba(94,106,210,0.07) 0%, transparent 65%);
             pointer-events: none;
         }
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 960px; }
 
-        .hero-content {
-            text-align: center;
-            z-index: 1;
-            max-width: 920px;
-        }
-
+        /* Eyebrow */
         .hero-eyebrow {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 28px;
-            opacity: 0;
-            animation: fadeUp 0.8s var(--ease) 0.15s forwards;
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 32px;
+            opacity: 0; animation: fadeUp 0.8s var(--ease) 0.15s forwards;
         }
+        .eyebrow-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; }
 
+        /* Hero Title — 3 scroll-driven words */
         .hero-title {
-            font-size: clamp(3.5rem, 10vw, 8rem);
+            display: flex; flex-direction: column; gap: 0.02em;
+            font-size: clamp(4.5rem, 11vw, 9rem);
             font-weight: 800;
-            line-height: 0.93;
-            letter-spacing: -0.045em;
-            color: white;
-            margin-bottom: 32px;
-            opacity: 0;
-            animation: fadeUp 0.9s var(--ease) 0.3s forwards;
+            line-height: 0.90;
+            letter-spacing: -0.048em;
+            margin-bottom: 36px;
+            opacity: 0; animation: fadeUp 0.95s var(--ease) 0.3s forwards;
         }
-        .hero-title .dim { color: rgba(255,255,255,0.38); display: block; }
+        .hero-word {
+            display: block;
+            transition: color 0.35s ease, opacity 0.35s ease;
+            will-change: color, opacity;
+        }
+        .hero-word.hw-active { color: var(--white); }
+        .hero-word.hw-dim { color: var(--gray); opacity: 0.55; }
 
+        /* Hero Sub */
         .hero-sub {
-            font-size: clamp(1rem, 2.2vw, 1.2rem);
-            font-weight: 300;
-            color: rgba(255,255,255,0.45);
-            line-height: 1.75;
-            max-width: 540px;
-            margin: 0 auto 48px;
-            opacity: 0;
-            animation: fadeUp 0.9s var(--ease) 0.45s forwards;
+            font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300;
+            color: var(--gray); line-height: 1.75;
+            max-width: 520px; margin: 0 auto 52px;
+            opacity: 0; animation: fadeUp 0.9s var(--ease) 0.48s forwards;
         }
 
+        /* CTA */
         .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--accent);
-            color: white;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9375rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            padding: 15px 34px;
-            border-radius: 40px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--accent); color: white;
+            font-family: 'Outfit', sans-serif; font-size: 0.9375rem; font-weight: 600;
+            padding: 15px 36px; border-radius: 40px; text-decoration: none; border: none; cursor: pointer;
             transition: background 0.25s ease, transform 0.25s var(--ease), box-shadow 0.25s ease;
-            opacity: 0;
-            animation: fadeUp 0.9s var(--ease) 0.6s forwards;
+            opacity: 0; animation: fadeUp 0.9s var(--ease) 0.62s forwards;
         }
         .hero-cta:hover {
             background: var(--accent-dark);
             transform: translateY(-2px);
-            box-shadow: 0 14px 44px rgba(148, 193, 31, 0.28);
+            box-shadow: 0 16px 48px rgba(94,106,210,0.35);
         }
         .hero-cta svg { transition: transform 0.3s var(--ease); }
         .hero-cta:hover svg { transform: translateY(3px); }
 
+        /* Scroll line */
         .hero-scroll {
-            position: absolute;
-            bottom: 44px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0;
-            animation: fadeIn 1s ease 1.4s forwards;
+            position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            opacity: 0; animation: fadeIn 1s ease 1.4s forwards;
         }
         .hero-scroll-line {
-            width: 1px;
-            height: 52px;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
+            width: 1px; height: 52px;
+            background: linear-gradient(to bottom, rgba(94,106,210,0.6), transparent);
             animation: scrollPulse 2.2s ease-in-out infinite;
         }
         @keyframes scrollPulse {
@@ -358,552 +241,311 @@
             from { opacity: 0; transform: translateY(28px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* Scroll-reveal: fade + slide + blur */
         .reveal {
             opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+            transform: translateY(32px);
+            filter: blur(5px);
+            transition:
+                opacity 0.75s var(--ease),
+                transform 0.75s var(--ease),
+                filter 0.75s var(--ease);
         }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+        /* Stagger delays */
         .reveal-d1 { transition-delay: 0.1s; }
         .reveal-d2 { transition-delay: 0.2s; }
         .reveal-d3 { transition-delay: 0.3s; }
 
+        /* Clip reveal for special elements */
+        .reveal-clip {
+            clip-path: inset(0 0 100% 0);
+            transition: clip-path 0.8s var(--ease);
+        }
+        .reveal-clip.visible { clip-path: inset(0 0 0% 0); }
+
+        /* Scale reveal for cards */
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.96) translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+        .reveal-scale.visible { opacity: 1; transform: scale(1) translateY(0); }
+
         /* =============================================
            AD CONTAINERS
         ============================================= */
-        .ad-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            padding: 40px 24px;
-        }
+        .ad-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 40px 24px; }
         .ad-label {
-            font-size: 0.62rem;
-            font-weight: 500;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gray-400);
+            font-size: 0.62rem; font-weight: 500; letter-spacing: 0.2em;
+            text-transform: uppercase; color: var(--gray-dim, rgba(138,143,152,0.5));
         }
         .ad-slot {
-            width: 100%;
-            max-width: 728px;
-            min-height: 90px;
-            background: var(--gray-50);
-            border: 1px solid var(--gray-100);
-            border-radius: var(--r-sm);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%; max-width: 728px; min-height: 90px;
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: var(--r-sm); overflow: hidden;
         }
-        .ad-slot-rect {
-            min-height: 250px;
-            max-width: 100%;
-        }
+        .ad-slot-rect { min-height: 250px; max-width: 100%; }
 
         /* =============================================
            TOOL SECTION
         ============================================= */
-        .tool-section {
-            padding: 88px 28px 80px;
-            max-width: 1280px;
-            margin: 0 auto;
-        }
+        .tool-section { padding: 88px 28px 80px; max-width: 1280px; margin: 0 auto; }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
+        .section-header { text-align: center; margin-bottom: 60px; }
         .section-eyebrow {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 14px;
+            font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
         }
         .section-title {
             font-size: clamp(1.875rem, 4vw, 2.75rem);
-            font-weight: 700;
-            letter-spacing: -0.035em;
-            color: var(--black);
+            font-weight: 700; letter-spacing: -0.035em; color: var(--white);
         }
 
         /* Tool grid */
-        .tool-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            align-items: start;
-        }
-        .tool-column {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
+        .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+        .tool-column { display: flex; flex-direction: column; gap: 20px; }
 
         /* =============================================
            CARDS
         ============================================= */
         .card {
-            background: var(--surface);
-            border: 1px solid var(--gray-100);
+            background: var(--bg-3);
+            border: 1px solid var(--border);
             border-radius: var(--r);
-            padding: 36px 32px;
-            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.04);
-            transition: box-shadow 0.35s ease;
+            padding: 32px 28px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .card:hover { box-shadow: 0 6px 48px rgba(0, 0, 0, 0.08); }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 28px;
+        .card:hover {
+            border-color: var(--border-mid);
+            box-shadow: 0 0 0 1px rgba(94,106,210,0.08) inset;
         }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .card h2 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: var(--black);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 28px;
+            font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.02em;
+            color: var(--white); display: flex; align-items: center; gap: 8px; margin-bottom: 24px;
         }
         .card-header h2 { margin-bottom: 0; }
 
         /* =============================================
            FORM ELEMENTS
         ============================================= */
-        .input-group { margin-bottom: 22px; }
+        .input-group { margin-bottom: 20px; }
         .input-group label {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gray-400);
-            margin-bottom: 9px;
+            display: block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--gray); margin-bottom: 8px;
         }
         .input-group input,
         input[type="number"] {
             width: 100%;
-            background: var(--gray-50);
-            border: 1px solid var(--gray-100);
+            background: var(--bg-4);
+            border: 1px solid var(--border);
             border-radius: var(--r-sm);
-            padding: 12px 16px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--black);
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            padding: 11px 15px;
+            font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 400;
+            color: var(--white); outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
             -webkit-appearance: none;
         }
         .input-group input:focus,
         input[type="number"]:focus {
-            background: var(--surface);
-            border-color: var(--black);
-            box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.07);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
-        input[type="number"]::placeholder { color: var(--gray-400); }
+        input[type="number"]::placeholder { color: var(--gray); opacity: 0.5; }
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
         input[type="number"] { -moz-appearance: textfield; }
 
-        /* Par button grid */
-        .par-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-top: 9px;
-        }
+        /* Par buttons */
+        .par-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px; }
         .par-select-btn {
-            background: var(--gray-50);
-            border: 1px solid var(--gray-100);
-            border-radius: var(--r-sm);
-            padding: 11px 8px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9375rem;
-            font-weight: 500;
-            color: var(--gray-600);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            width: 100%;
+            background: var(--bg-4); border: 1px solid var(--border);
+            border-radius: var(--r-sm); padding: 10px 6px;
+            font-family: 'Outfit', sans-serif; font-size: 0.9375rem; font-weight: 500;
+            color: var(--gray); cursor: pointer; transition: all 0.2s ease; text-align: center; width: 100%;
         }
-        .par-select-btn:hover { background: var(--gray-100); color: var(--black); }
-        .par-select-btn.active {
-            background: var(--black);
-            border-color: var(--black);
-            color: var(--white);
-        }
-        .par-grid input[type="number"] {
-            padding: 11px 8px;
-            text-align: center;
-        }
+        .par-select-btn:hover { background: var(--bg-2); color: var(--white); border-color: var(--border-mid); }
+        .par-select-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+        .par-grid input[type="number"] { padding: 10px 6px; text-align: center; }
 
         /* =============================================
-           TOGGLE SWITCH (iOS style)
+           TOGGLE SWITCH
         ============================================= */
         .toggle-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--gray-100);
-            margin-bottom: 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 0; border-bottom: 1px solid var(--border); margin-bottom: 22px;
         }
         .toggle-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--black);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 0.875rem; font-weight: 500; color: var(--white);
+            display: flex; align-items: center; gap: 6px;
         }
         .toggle-switch {
-            position: relative;
-            width: 44px;
-            height: 24px;
-            background: var(--gray-200);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.25s ease;
-            flex-shrink: 0;
+            position: relative; width: 44px; height: 24px;
+            background: rgba(247,248,248,0.1); border-radius: 12px;
+            cursor: pointer; transition: background 0.25s ease; flex-shrink: 0;
         }
         .toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
         .toggle-slider {
-            position: absolute;
-            top: 3px; left: 3px;
-            width: 18px; height: 18px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.25s var(--ease);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+            position: absolute; top: 3px; left: 3px; width: 18px; height: 18px;
+            background: var(--gray); border-radius: 50%;
+            transition: transform 0.25s var(--ease), background 0.25s ease;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
-        .toggle-switch.active { background: var(--black); }
-        .toggle-switch.active .toggle-slider { transform: translateX(20px); }
+        .toggle-switch.active { background: var(--accent); }
+        .toggle-switch.active .toggle-slider { transform: translateX(20px); background: white; }
 
         /* =============================================
            RESULT BOXES
         ============================================= */
         .result-box {
-            background: var(--gray-50);
-            border: 1px solid var(--gray-100);
-            border-radius: var(--r-sm);
-            padding: 16px 20px;
-            margin-bottom: 12px;
+            background: var(--bg-4); border: 1px solid var(--border);
+            border-radius: var(--r-sm); padding: 16px 20px; margin-bottom: 10px;
         }
         .result-label {
-            font-size: 0.65rem;
-            font-weight: 500;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--gray-400);
-            margin-bottom: 6px;
+            font-size: 0.65rem; font-weight: 500; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--gray); margin-bottom: 6px;
         }
-        .result-value {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            color: var(--black);
-        }
-        .summary-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
+        .result-value { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; color: var(--white); }
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
         .summary-box {
-            background: var(--gray-50);
-            border: 1px solid var(--gray-100);
-            border-radius: var(--r-sm);
-            padding: 16px 20px;
+            background: var(--bg-4); border: 1px solid var(--border);
+            border-radius: var(--r-sm); padding: 16px 20px;
         }
         .result-box-accent {
-            background: var(--gray-50);
-            border: 2px solid var(--accent);
-            border-radius: var(--r-sm);
-            padding: 16px 20px;
-            margin-bottom: 12px;
+            background: rgba(94,106,210,0.07);
+            border: 1px solid rgba(94,106,210,0.25);
+            border-radius: var(--r-sm); padding: 16px 20px; margin-bottom: 10px;
         }
+        .result-box-accent .result-value { color: var(--accent); }
         .final-result {
-            background: var(--black);
-            border: 1px solid var(--black);
-            border-radius: var(--r-sm);
-            padding: 20px 24px;
-            margin-bottom: 12px;
+            background: linear-gradient(135deg, rgba(94,106,210,0.14) 0%, rgba(94,106,210,0.06) 100%);
+            border: 1px solid rgba(94,106,210,0.3);
+            border-radius: var(--r-sm); padding: 22px 24px; margin-bottom: 10px;
+            position: relative; overflow: hidden;
         }
-        .final-result .result-label { color: rgba(255,255,255,0.4); }
+        .final-result::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.5;
+        }
+        .final-result .result-label { color: var(--gray); }
         .final-result .result-value { color: var(--accent); font-size: 2.75rem; }
 
         .formula-info {
-            font-size: 0.75rem;
-            font-weight: 300;
-            color: var(--gray-400);
-            background: var(--gray-50);
-            border-radius: var(--r-sm);
-            padding: 12px 16px;
-            line-height: 1.75;
-            margin-bottom: 12px;
+            font-size: 0.75rem; font-weight: 300; color: var(--gray);
+            background: var(--bg-4); border: 1px solid var(--border);
+            border-radius: var(--r-sm); padding: 12px 16px; line-height: 1.75; margin-bottom: 10px;
         }
-        .formula-info strong { color: var(--gray-600); font-weight: 600; }
+        .formula-info strong { color: var(--white); font-weight: 600; }
 
         /* =============================================
            BUTTONS
         ============================================= */
-        .action-buttons { display: flex; gap: 10px; margin-top: 16px; }
-
+        .action-buttons { display: flex; gap: 10px; margin-top: 14px; }
         .action-btn {
-            flex: 1;
-            background: var(--gray-50);
-            color: var(--gray-600);
-            border: 1px solid var(--gray-100);
-            border-radius: var(--r-sm);
-            padding: 12px 20px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            flex: 1; background: rgba(247,248,248,0.05); color: var(--gray);
+            border: 1px solid var(--border); border-radius: var(--r-sm);
+            padding: 12px 20px; font-family: 'Outfit', sans-serif; font-size: 0.875rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s ease;
         }
-        .action-btn:hover { background: var(--gray-100); color: var(--black); }
-
+        .action-btn:hover { background: rgba(247,248,248,0.09); color: var(--white); border-color: var(--border-mid); }
         .reset-scores-btn {
-            background: none;
-            border: 1px solid var(--gray-200);
-            color: var(--gray-400);
-            border-radius: 20px;
-            padding: 5px 14px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            background: none; border: 1px solid var(--border); color: var(--gray);
+            border-radius: 20px; padding: 5px 14px;
+            font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s ease;
         }
-        .reset-scores-btn:hover { border-color: var(--gray-600); color: var(--black); }
-
+        .reset-scores-btn:hover { border-color: var(--border-mid); color: var(--white); }
         .remove-btn {
-            background: none;
-            border: 1px solid var(--gray-200);
-            color: var(--gray-400);
-            border-radius: var(--r-sm);
-            padding: 6px 12px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
+            background: none; border: 1px solid var(--border); color: var(--gray);
+            border-radius: var(--r-sm); padding: 6px 12px;
+            font-family: 'Outfit', sans-serif; font-size: 0.75rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s ease; white-space: nowrap;
         }
-        .remove-btn:hover {
-            border-color: rgba(212, 54, 54, 0.4);
-            color: #c0392b;
-            background: rgba(212, 54, 54, 0.05);
-        }
+        .remove-btn:hover { border-color: rgba(240,80,80,0.4); color: #f05050; background: rgba(240,80,80,0.06); }
 
-        /* Primary button (addNDB etc.) — catch-all */
+        /* Primary button catch-all */
         button:not(.reset-scores-btn):not(.par-select-btn):not(.action-btn):not(.remove-btn):not(.hamburger-btn) {
-            width: 100%;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: var(--r-sm);
-            padding: 14px 24px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9375rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.25s ease, transform 0.25s var(--ease), box-shadow 0.25s ease;
+            width: 100%; background: var(--accent); color: white; border: none;
+            border-radius: var(--r-sm); padding: 13px 24px;
+            font-family: 'Outfit', sans-serif; font-size: 0.9375rem; font-weight: 600;
+            cursor: pointer; transition: background 0.25s ease, transform 0.25s var(--ease), box-shadow 0.25s ease;
         }
         button:not(.reset-scores-btn):not(.par-select-btn):not(.action-btn):not(.remove-btn):not(.hamburger-btn):hover {
-            background: var(--accent-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 8px 28px rgba(148, 193, 31, 0.28);
+            background: var(--accent-dark); transform: translateY(-1px);
+            box-shadow: 0 8px 28px var(--accent-glow);
         }
 
         /* =============================================
            SCORECARD GRID
         ============================================= */
-        .scores-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
-        }
-        .score-input {
-            text-align: center !important;
-            padding: 11px 4px !important;
-            font-size: 0.9375rem !important;
-            font-weight: 500 !important;
-        }
+        .scores-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+        .score-input { text-align: center !important; padding: 10px 4px !important; font-size: 0.9375rem !important; font-weight: 500 !important; }
 
         /* =============================================
            NDB ENTRIES
         ============================================= */
         .ndb-entry {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--gray-50);
-            border: 1px solid var(--gray-100);
-            border-radius: var(--r-sm);
-            margin-bottom: 8px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 16px; background: var(--bg-4); border: 1px solid var(--border);
+            border-radius: var(--r-sm); margin-bottom: 8px;
         }
         .ndb-info { display: flex; gap: 20px; align-items: center; }
-        .ndb-label {
-            font-size: 0.65rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--gray-400);
-        }
-        .ndb-value {
-            font-size: 1.375rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--black);
-        }
-        .ndb-input-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
+        .ndb-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); }
+        .ndb-value { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; color: var(--white); }
+        .ndb-input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
         .ndb-input-grid .input-group { margin-bottom: 0; }
 
         /* =============================================
-           INFO TOOLTIP
+           TOOLTIP
         ============================================= */
         .info-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 18px;
-            height: 18px;
-            background: var(--gray-100);
-            color: var(--gray-400);
-            border-radius: 50%;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: help;
-            position: relative;
-            user-select: none;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 18px; height: 18px; background: rgba(247,248,248,0.08);
+            color: var(--gray); border-radius: 50%; font-size: 11px; font-weight: 700;
+            cursor: help; position: relative; user-select: none;
             -webkit-tap-highlight-color: transparent;
-            transition: background 0.2s ease, color 0.2s ease;
-            flex-shrink: 0;
+            transition: background 0.2s ease, color 0.2s ease; flex-shrink: 0;
         }
-        .info-icon:hover, .info-icon.active { background: var(--black); color: white; }
-
+        .info-icon:hover, .info-icon.active { background: var(--accent); color: white; }
         .info-tooltip, .info-tooltip-down {
-            position: absolute;
-            background: var(--black);
-            color: white;
-            padding: 14px 16px;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            line-height: 1.65;
-            width: 265px;
-            opacity: 0;
-            visibility: hidden;
+            position: absolute; background: #1A1D22; color: var(--white);
+            padding: 14px 16px; border-radius: 10px; font-size: 0.75rem;
+            line-height: 1.65; width: 265px; opacity: 0; visibility: hidden;
             transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s var(--ease);
-            pointer-events: none;
-            z-index: 1100;
-            text-align: left;
-            font-weight: 300;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.22);
+            pointer-events: none; z-index: 1100; text-align: left; font-weight: 300;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.5); border: 1px solid var(--border);
         }
-        .info-tooltip {
-            bottom: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%) translateY(6px);
-        }
-        .info-tooltip-down {
-            top: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%) translateY(-6px);
-        }
-        .info-icon:hover .info-tooltip,
-        .info-icon.active .info-tooltip {
-            opacity: 1; visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-        .info-icon:hover .info-tooltip-down,
-        .info-icon.active .info-tooltip-down {
-            opacity: 1; visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-        .info-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%; left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid transparent;
-            border-top-color: var(--black);
-        }
-        .info-tooltip-down::before {
-            content: '';
-            position: absolute;
-            bottom: 100%; left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid transparent;
-            border-bottom-color: var(--black);
-        }
+        .info-tooltip { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(6px); }
+        .info-tooltip-down { top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(-6px); }
+        .info-icon:hover .info-tooltip, .info-icon.active .info-tooltip { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .info-icon:hover .info-tooltip-down, .info-icon.active .info-tooltip-down { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .info-tooltip::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#1A1D22; }
+        .info-tooltip-down::before { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-bottom-color:#1A1D22; }
         .info-tooltip strong, .info-tooltip-down strong { color: var(--accent); font-weight: 600; }
 
         /* =============================================
            FOOTER
         ============================================= */
-        .footer {
-            background: var(--black);
-            padding: 72px 36px 44px;
-            margin-top: 80px;
-        }
+        .footer { background: #050607; border-top: 1px solid var(--border); padding: 72px 36px 44px; margin-top: 80px; }
         .footer-inner { max-width: 1280px; margin: 0 auto; }
-        .footer-top {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 80px;
-            padding-bottom: 52px;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
-            margin-bottom: 36px;
-        }
+        .footer-top { display: grid; grid-template-columns: 280px 1fr; gap: 80px; padding-bottom: 52px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
         .footer-brand { display: flex; flex-direction: column; gap: 14px; }
-        .footer-brand img { height: 34px; width: 34px; object-fit: contain; opacity: 0.85; }
-        .footer-brand-name { font-size: 0.9375rem; font-weight: 600; color: white; letter-spacing: -0.01em; }
-        .footer-brand-sub { font-size: 0.8125rem; font-weight: 300; color: rgba(255,255,255,0.3); line-height: 1.7; }
+        .footer-brand img { height: 34px; width: 34px; object-fit: contain; opacity: 0.7; }
+        .footer-brand-name { font-size: 0.9375rem; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+        .footer-brand-sub { font-size: 0.8125rem; font-weight: 300; color: var(--gray); opacity: 0.6; line-height: 1.7; }
         .footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
-        .footer-col-title {
-            font-size: 0.65rem;
-            font-weight: 500;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.25);
-            margin-bottom: 18px;
-        }
-        .footer-link {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 300;
-            color: rgba(255,255,255,0.48);
-            text-decoration: none;
-            margin-bottom: 11px;
-            transition: color 0.2s ease;
-        }
-        .footer-link:hover { color: white; }
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .footer-copy { font-size: 0.8125rem; font-weight: 300; color: rgba(255,255,255,0.22); }
-        .footer-version { font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.18); letter-spacing: 0.05em; }
+        .footer-col-title { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray); opacity: 0.4; margin-bottom: 18px; }
+        .footer-link { display: block; font-size: 0.875rem; font-weight: 300; color: var(--gray); opacity: 0.55; text-decoration: none; margin-bottom: 11px; transition: all 0.2s ease; }
+        .footer-link:hover { color: var(--white); opacity: 1; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .footer-copy { font-size: 0.8125rem; font-weight: 300; color: var(--gray); opacity: 0.3; }
+        .footer-version { font-size: 0.75rem; font-weight: 500; color: var(--gray); opacity: 0.25; letter-spacing: 0.05em; }
 
         /* =============================================
            RESPONSIVE
@@ -911,25 +553,21 @@
         @media (max-width: 1024px) {
             .tool-grid { grid-template-columns: 1fr; }
             .tool-column { display: contents; }
-            #card-results  { order: 1; }
-            #card-handicap { order: 2; }
-            #card-scorecard{ order: 3; }
-            #card-ndb      { order: 4; }
+            #card-results  { order: 1; } #card-handicap { order: 2; }
+            #card-scorecard{ order: 3; } #card-ndb      { order: 4; }
         }
-
         @media (max-width: 768px) {
             .nav-inner { padding: 0 20px; }
             .nav-links { display: none; }
             .hamburger-btn { display: flex; }
             .hero { padding: calc(var(--nav-h) + 24px) 24px 80px; }
             .tool-section { padding: 64px 16px 60px; }
-            .card { padding: 24px 20px; }
+            .card { padding: 22px 18px; }
             .scores-grid { grid-template-columns: repeat(3, 1fr); }
             .footer-top { grid-template-columns: 1fr; gap: 44px; }
             .footer-links { grid-template-columns: 1fr 1fr; }
             .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
         }
-
         @media (max-width: 480px) {
             .nav-logo-text { display: none; }
             .footer-links { grid-template-columns: 1fr; }
@@ -938,14 +576,8 @@
 </head>
 <body>
 
-    <!-- ============================================================
-         MOBILE MENU OVERLAY
-    ============================================================ -->
     <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
-    <!-- ============================================================
-         SLIDE MENU (Mobile)
-    ============================================================ -->
     <div class="slide-menu" id="slideMenu">
         <a href="index.html" class="menu-item active-page">Startseite</a>
         <a href="aboutus.html" class="menu-item">Über uns</a>
@@ -960,13 +592,11 @@
         </div>
     </div>
 
-    <!-- ============================================================
-         NAVIGATION
-    ============================================================ -->
+    <!-- NAVIGATION -->
     <nav class="nav" id="mainNav">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo">
-                <img src="/images/android-chrome-512x512.png" alt="Scorekarten Tool Logo">
+                <img src="/images/android-chrome-512x512.png" alt="Logo">
                 <span class="nav-logo-text">Scorekarten Tool</span>
             </a>
             <div class="nav-links">
@@ -980,52 +610,45 @@
                     <a href="index_fr.html">FR</a>
                     <a href="index_en.html">EN</a>
                 </div>
-                <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Menü öffnen">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Menü">
+                    <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- ============================================================
-         HERO SECTION
-    ============================================================ -->
-    <section class="hero">
+    <!-- HERO -->
+    <section class="hero" id="heroSection">
         <div class="hero-content">
-            <span class="hero-eyebrow">World Handicap System &middot; WHS 2025</span>
+            <span class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                World Handicap System &middot; WHS <span class="year-dynamic"></span>
+            </span>
             <h1 class="hero-title">
-                Ihr Score.
-                <span class="dim">Präzise berechnet.</span>
+                <span class="hero-word hw-active" id="hw-0">Ihr Score</span>
+                <span class="hero-word hw-dim"    id="hw-1">Präzise</span>
+                <span class="hero-word hw-dim"    id="hw-2">berechnet</span>
             </h1>
             <p class="hero-sub">Berechnen Sie Ihr Score Differential und Ihre Spielvorgabe — transparent, schnell und nach offiziellem WHS-Standard.</p>
             <a href="#rechner" class="hero-cta">
                 Jetzt berechnen
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M8 3v10M3 8.5l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </a>
         </div>
-        <div class="hero-scroll" aria-hidden="true">
-            <div class="hero-scroll-line"></div>
-        </div>
+        <div class="hero-scroll" aria-hidden="true"><div class="hero-scroll-line"></div></div>
     </section>
 
-    <!-- ============================================================
-         AD BANNER (Top, below hero)
-    ============================================================ -->
+    <!-- AD BANNER -->
     <div class="ad-wrap">
         <span class="ad-label">Anzeige</span>
         <div class="ad-slot">
             <!-- Google AdSense: Leaderboard 728×90 -->
-            <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="horizontal"></ins> -->
         </div>
     </div>
 
-    <!-- ============================================================
-         TOOL SECTION
-    ============================================================ -->
+    <!-- TOOL SECTION -->
     <section id="rechner" class="tool-section">
 
         <div class="section-header reveal">
@@ -1035,34 +658,23 @@
 
         <div class="tool-grid">
 
-            <!-- ====================================================
-                 LEFT COLUMN
-            ==================================================== -->
+            <!-- LEFT COLUMN -->
             <div id="leftColumn" class="tool-column">
 
-                <!-- HANDICAP & PLATZDATEN -->
                 <div class="card reveal" id="card-handicap">
                     <h2>
                         Handicap &amp; Platzdaten
-                        <span class="info-icon" style="display:inline-flex;vertical-align:middle;margin-left:6px;">
-                            ?
+                        <span class="info-icon" style="display:inline-flex;vertical-align:middle;margin-left:6px;">?
                             <div class="info-tooltip-down">
                                 <strong>Spielvorgabe (Course Handicap):</strong><br>
                                 Anzahl Vorgabenschläge für einen spezifischen Platz.<br><br>
                                 <strong>Formel:</strong><br>
-                                HCP Index × (Slope/113) + (Course Rating - Par)<br>
-                                → Ergebnis wird gerundet<br><br>
-                                <strong>Faktoren:</strong><br>
-                                • <strong>Slope Rating:</strong> Platzschwierigkeit (113 = neutral)<br>
-                                • <strong>Course Rating:</strong> Erwartete Schläge eines Scratch-Golfers<br>
-                                • <strong>Par:</strong> Sollvorgabe des Platzes<br><br>
+                                HCP Index × (Slope/113) + (Course Rating - Par)<br>→ gerundet<br><br>
                                 <strong>Beispiel:</strong><br>
-                                HCP 18.5, Slope 125, CR 72.5, Par 72<br>
-                                = 18.5 × 1.106 + 0.5 = 21 Schläge Vorgabe
+                                HCP 18.5, Slope 125, CR 72.5, Par 72<br>= 21 Schläge Vorgabe
                             </div>
                         </span>
                     </h2>
-
                     <div class="input-group">
                         <label for="handicapIndex">Handicap Index</label>
                         <input type="number" id="handicapIndex" step="0.1" placeholder="z.B. 18.5" inputmode="decimal">
@@ -1072,11 +684,11 @@
                         <input type="number" id="slopeRating" placeholder="z.B. 125" inputmode="decimal">
                     </div>
                     <div class="input-group">
-                        <label for="courseRating">Course Rating (<span id="crModeLabel">18-Loch Wert verwenden</span>)</label>
+                        <label for="courseRating">Course Rating (<span id="crModeLabel">18-Loch Wert</span>)</label>
                         <input type="number" id="courseRating" step="0.1" placeholder="z.B. 72.5" inputmode="decimal">
                     </div>
                     <div class="input-group">
-                        <label for="par">Par (<span id="parModeLabel">18-Loch Wert verwenden</span>)</label>
+                        <label for="par">Par (<span id="parModeLabel">18-Loch Wert</span>)</label>
                         <div class="par-grid">
                             <button type="button" class="par-select-btn" id="parBtn1" onclick="selectPar(70)">70</button>
                             <button type="button" class="par-select-btn" id="parBtn2" onclick="selectPar(71)">71</button>
@@ -1084,7 +696,6 @@
                             <input type="number" id="par" placeholder="—" inputmode="decimal">
                         </div>
                     </div>
-
                     <div class="result-box">
                         <div class="result-label">Spielvorgabe (Course Handicap)</div>
                         <div class="result-value" id="playingHandicap">—</div>
@@ -1095,24 +706,19 @@
                     </div>
                 </div>
 
-                <!-- SCHLÄGE ERFASSEN -->
                 <div class="card reveal reveal-d1" id="card-scorecard">
                     <div class="card-header">
                         <h2>Schläge erfassen</h2>
                         <button class="reset-scores-btn" onclick="resetScores()">Zurücksetzen</button>
                     </div>
-
                     <div class="toggle-container">
                         <span class="toggle-label" id="scoreToggleLabel">
                             Gesamte Schlagzahl
-                            <span class="info-icon">
-                                ?
+                            <span class="info-icon">?
                                 <div class="info-tooltip">
-                                    <strong>Eingabemodus wählen:</strong><br><br>
-                                    <strong>Gesamte Schlagzahl:</strong><br>
-                                    Ein Feld – einfach die Summe aller Schläge eingeben.<br><br>
-                                    <strong>Loch für Loch:</strong><br>
-                                    18 Felder – für jedes Loch die gespielten Schläge eingeben.
+                                    <strong>Eingabemodus:</strong><br><br>
+                                    <strong>Gesamte Schlagzahl:</strong><br>Ein Feld – Summe aller Schläge.<br><br>
+                                    <strong>Loch für Loch:</strong><br>18 Felder – Schläge pro Loch.
                                 </div>
                             </span>
                         </span>
@@ -1121,43 +727,33 @@
                             <div class="toggle-slider"></div>
                         </div>
                     </div>
-
                     <div id="bulkInput">
                         <div class="input-group" style="margin-bottom:0;">
                             <label for="bulkTotalStrokes">Gesamte Schlagzahl</label>
                             <input type="number" id="bulkTotalStrokes" min="1" placeholder="z.B. 95" inputmode="decimal">
                         </div>
                     </div>
-
                     <div id="gridInput" style="display:none;">
-                        <label style="display:block;font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:12px;">Schläge pro Loch (1–18)</label>
+                        <label style="display:block;font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;">Schläge pro Loch (1–18)</label>
                         <div class="scores-grid" id="scoresGrid"></div>
                     </div>
                 </div>
 
             </div><!-- /leftColumn -->
 
-            <!-- ====================================================
-                 RIGHT COLUMN
-            ==================================================== -->
+            <!-- RIGHT COLUMN -->
             <div id="rightColumn" class="tool-column">
 
-                <!-- ERGEBNIS -->
                 <div class="card reveal" id="card-results">
                     <h2>Ergebnis</h2>
-
                     <div class="toggle-container">
                         <span class="toggle-label">
                             9-Loch-Modus
-                            <span class="info-icon">
-                                ?
+                            <span class="info-icon">?
                                 <div class="info-tooltip-down">
                                     <strong>9-Loch-Modus:</strong><br>
-                                    Aktivieren für 9-Loch-Runden<br><br>
-                                    <strong>Anpassungen:</strong><br>
-                                    • Course Rating und Par als 9-Loch-Werte eingeben<br>
-                                    • Spielvorgabe wird automatisch korrekt berechnet<br><br>
-                                    <strong>Wichtig:</strong> Bei aktivem 9-Loch-Modus immer die 9-Loch-Werte für Course Rating und Par verwenden!
+                                    Aktivieren für 9-Loch-Runden.<br><br>
+                                    Course Rating und Par als 9-Loch-Werte eingeben.
                                 </div>
                             </span>
                         </span>
@@ -1166,7 +762,6 @@
                             <div class="toggle-slider"></div>
                         </div>
                     </div>
-
                     <div class="summary-grid">
                         <div class="summary-box">
                             <div class="result-label">Summe Schläge</div>
@@ -1177,48 +772,38 @@
                             <div class="result-value" id="totalNDB">0</div>
                         </div>
                     </div>
-
                     <div class="result-box-accent">
                         <div class="result-label">Gewertetes Bruttoergebnis</div>
                         <div class="result-value" id="grossScore">0</div>
                     </div>
-
                     <div class="final-result">
                         <div class="result-label">Score Differential</div>
                         <div class="result-value" id="scoreDifferential">—</div>
                     </div>
-
                     <div class="formula-info" id="formulaInfo" style="display:none;">
                         <strong>Berechnungsformel:</strong><br>
                         <span id="formulaText"></span>
                     </div>
-
                     <div class="action-buttons">
                         <button class="action-btn" onclick="resetAll()">Alles zurücksetzen</button>
                     </div>
                 </div>
 
-                <!-- NDB -->
                 <div class="card reveal reveal-d1" id="card-ndb">
                     <h2>
                         Netto Double Bogey
-                        <span class="info-icon" style="display:inline-flex;vertical-align:middle;margin-left:6px;">
-                            ?
+                        <span class="info-icon" style="display:inline-flex;vertical-align:middle;margin-left:6px;">?
                             <div class="info-tooltip">
                                 <strong>Netto Double Bogey (NDB):</strong><br>
-                                Maximal wertbares Ergebnis pro Loch für Handicap-Zwecke.<br><br>
+                                Maximal wertbares Ergebnis pro Loch.<br><br>
                                 <strong>Berechnung:</strong><br>
-                                Par + 2 Schläge + erhaltene Vorgabenschläge<br><br>
-                                <strong>Beispiel bei Par 4:</strong><br>
-                                • Ohne Vorgabe: 4 + 2 = 6 Schläge<br>
-                                • Mit 1 Vorgabenschlag: 4 + 2 + 1 = 7 Schläge<br><br>
-                                <strong>Verwendung:</strong><br>
-                                Für gestrichene Löcher oder wenn das tatsächliche Ergebnis höher als NDB war.
+                                Par + 2 + erhaltene Vorgabenschläge<br><br>
+                                <strong>Beispiel Par 4 ohne Vorgabe:</strong><br>
+                                4 + 2 = 6 Schläge
                             </div>
                         </span>
                     </h2>
-                    <p style="font-size:0.875rem;font-weight:300;color:var(--gray-400);margin:-16px 0 20px;">Für gestrichene Löcher</p>
-
+                    <p style="font-size:0.875rem;font-weight:300;color:var(--gray);margin:-16px 0 18px;">Für gestrichene Löcher</p>
                     <div class="ndb-input-grid">
                         <div class="input-group" style="margin-bottom:0;">
                             <label for="strokeIndex">Stroke Index</label>
@@ -1229,29 +814,23 @@
                             <input type="number" id="holePar" min="3" max="5" placeholder="3–5" inputmode="decimal">
                         </div>
                     </div>
-
                     <button onclick="addNDB()">Netto Double Bogey hinzufügen</button>
-
-                    <div id="ndbList" style="margin-top:20px;"></div>
+                    <div id="ndbList" style="margin-top:18px;"></div>
                 </div>
 
-                <!-- AD — Sidebar Rectangle -->
+                <!-- AD Sidebar -->
                 <div class="ad-wrap" style="padding:0;">
                     <span class="ad-label">Anzeige</span>
                     <div class="ad-slot ad-slot-rect">
                         <!-- Google AdSense: Rectangle 300×250 -->
-                        <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="rectangle"></ins> -->
                     </div>
                 </div>
 
             </div><!-- /rightColumn -->
-
-        </div><!-- /tool-grid -->
+        </div>
     </section>
 
-    <!-- ============================================================
-         FOOTER
-    ============================================================ -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-top">
@@ -1280,26 +859,75 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <span class="footer-copy">© 2025 Noël Ledermann &middot; Migros Golf</span>
-                <span class="footer-version">Version 2.2 &middot; Stand 18.11.2025</span>
+                <span class="footer-copy">© <span class="year-dynamic"></span> Noël Ledermann &middot; Migros Golf</span>
+                <span class="footer-version">Version 2.2 &middot; WHS <span class="year-dynamic"></span></span>
             </div>
         </div>
     </footer>
 
-    <!-- ============================================================
-         JAVASCRIPT (Original logic preserved, UI enhancements added)
-    ============================================================ -->
     <script>
+        /* ============================================================
+           DYNAMIC YEAR
+        ============================================================ */
+        const currentYear = new Date().getFullYear();
+        document.querySelectorAll('.year-dynamic').forEach(el => el.textContent = currentYear);
+
+        /* ============================================================
+           TOOL STATE
+        ============================================================ */
         let ndbEntries = [];
         let isNineHole = false;
         let isScorecardHoleByHole = false;
 
-        /* ---- NAV SCROLL EFFECT ---- */
+        /* ============================================================
+           NAV SCROLL
+        ============================================================ */
         window.addEventListener('scroll', () => {
             document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
         }, { passive: true });
 
-        /* ---- SCROLL REVEAL (Intersection Observer) ---- */
+        /* ============================================================
+           HERO WORD SCROLL EFFECT
+           "Ihr Score" starts white; highlight migrates down on scroll
+        ============================================================ */
+        const GRAY_RGB   = [138, 143, 152]; // Oslo Gray
+        const WHITE_RGB  = [247, 248, 248]; // Black Haze
+
+        function lerpRGB(a, b, t) {
+            return [
+                Math.round(a[0] + (b[0] - a[0]) * t),
+                Math.round(a[1] + (b[1] - a[1]) * t),
+                Math.round(a[2] + (b[2] - a[2]) * t)
+            ];
+        }
+        function smoothstep(t) { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); }
+
+        function updateHeroWords() {
+            const hero = document.getElementById('heroSection');
+            if (!hero) return;
+            const maxScroll = hero.offsetHeight * 0.65;
+            const progress  = Math.min(window.scrollY / maxScroll, 1);
+
+            const words   = document.querySelectorAll('.hero-word');
+            const n       = words.length; // 3
+            const activePos = progress * (n - 1); // 0 → n-1
+
+            words.forEach((word, i) => {
+                const dist = Math.abs(activePos - i);
+                const t    = smoothstep(Math.max(0, 1 - dist));
+                const rgb  = lerpRGB(GRAY_RGB, WHITE_RGB, t);
+                const opacity = 0.4 + t * 0.6;
+                word.style.color   = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+                word.style.opacity  = opacity;
+            });
+        }
+
+        window.addEventListener('scroll', updateHeroWords, { passive: true });
+        updateHeroWords(); // set initial state
+
+        /* ============================================================
+           SCROLL REVEAL (Intersection Observer)
+        ============================================================ */
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1307,10 +935,12 @@
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        }, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+        document.querySelectorAll('.reveal, .reveal-scale, .reveal-clip').forEach(el => revealObserver.observe(el));
 
-        /* ---- MENU TOGGLE ---- */
+        /* ============================================================
+           MENU TOGGLE
+        ============================================================ */
         function toggleMenu() {
             const menu    = document.getElementById('slideMenu');
             const overlay = document.getElementById('menuOverlay');
@@ -1321,7 +951,9 @@
             document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
         }
 
-        /* ---- PAR SELECTION ---- */
+        /* ============================================================
+           PAR SELECTION
+        ============================================================ */
         function selectPar(value) {
             document.getElementById('par').value = value;
             document.querySelectorAll('.par-select-btn').forEach(btn => {
@@ -1330,72 +962,72 @@
             calculatePlayingHandicap();
         }
 
-        /* ---- 9-LOCH TOGGLE ---- */
+        /* ============================================================
+           9-LOCH TOGGLE
+        ============================================================ */
         function toggleNineHole() {
             isNineHole = !isNineHole;
-            const toggle   = document.getElementById('nineHoleToggle');
-            const checkbox = document.getElementById('nineHoleCheckbox');
+            const toggle = document.getElementById('nineHoleToggle');
             toggle.classList.toggle('active', isNineHole);
-            checkbox.checked = isNineHole;
-
+            document.getElementById('nineHoleCheckbox').checked = isNineHole;
             if (isNineHole) {
-                document.getElementById('crModeLabel').textContent  = '9-Loch Wert verwenden';
-                document.getElementById('parModeLabel').textContent  = '9-Loch Wert verwenden';
-                document.getElementById('courseRating').placeholder  = 'z.B. 36.2';
+                document.getElementById('crModeLabel').textContent = '9-Loch Wert';
+                document.getElementById('parModeLabel').textContent = '9-Loch Wert';
+                document.getElementById('courseRating').placeholder = 'z.B. 36.2';
                 document.getElementById('parBtn1').textContent = '34'; document.getElementById('parBtn1').onclick = () => selectPar(34);
                 document.getElementById('parBtn2').textContent = '35'; document.getElementById('parBtn2').onclick = () => selectPar(35);
                 document.getElementById('parBtn3').textContent = '36'; document.getElementById('parBtn3').onclick = () => selectPar(36);
             } else {
-                document.getElementById('crModeLabel').textContent  = '18-Loch Wert verwenden';
-                document.getElementById('parModeLabel').textContent  = '18-Loch Wert verwenden';
-                document.getElementById('courseRating').placeholder  = 'z.B. 72.5';
+                document.getElementById('crModeLabel').textContent = '18-Loch Wert';
+                document.getElementById('parModeLabel').textContent = '18-Loch Wert';
+                document.getElementById('courseRating').placeholder = 'z.B. 72.5';
                 document.getElementById('parBtn1').textContent = '70'; document.getElementById('parBtn1').onclick = () => selectPar(70);
                 document.getElementById('parBtn2').textContent = '71'; document.getElementById('parBtn2').onclick = () => selectPar(71);
                 document.getElementById('parBtn3').textContent = '72'; document.getElementById('parBtn3').onclick = () => selectPar(72);
             }
             document.getElementById('par').value = '';
-            document.querySelectorAll('.par-select-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.par-select-btn').forEach(b => b.classList.remove('active'));
             calculatePlayingHandicap();
             calculateScoreDifferential();
         }
 
-        /* ---- SCORECARD MODE TOGGLE ---- */
+        /* ============================================================
+           SCORECARD MODE TOGGLE
+        ============================================================ */
         function toggleScorecardMode() {
             isScorecardHoleByHole = !isScorecardHoleByHole;
-            const toggle   = document.getElementById('scorecardToggle');
-            const checkbox = document.getElementById('scorecardCheckbox');
-            const label    = document.getElementById('scoreToggleLabel');
+            const toggle = document.getElementById('scorecardToggle');
+            const label  = document.getElementById('scoreToggleLabel');
             toggle.classList.toggle('active', isScorecardHoleByHole);
-            checkbox.checked = isScorecardHoleByHole;
+            document.getElementById('scorecardCheckbox').checked = isScorecardHoleByHole;
             document.getElementById('bulkInput').style.display  = isScorecardHoleByHole ? 'none'  : 'block';
             document.getElementById('gridInput').style.display  = isScorecardHoleByHole ? 'block' : 'none';
             label.firstChild.textContent = isScorecardHoleByHole ? 'Loch für Loch' : 'Gesamte Schlagzahl';
             calculateTotals();
         }
 
-        /* ---- INIT SCORE GRID ---- */
+        /* ============================================================
+           INIT SCORE GRID
+        ============================================================ */
         function initializeScoreInputs() {
             const grid = document.getElementById('scoresGrid');
             grid.innerHTML = '';
             for (let i = 1; i <= 18; i++) {
                 const input = document.createElement('input');
-                input.type        = 'number';
-                input.className   = 'score-input';
-                input.placeholder = i;
-                input.min         = '1';
-                input.setAttribute('inputmode', 'decimal');
-                input.dataset.index = i;
+                input.type = 'number'; input.className = 'score-input';
+                input.placeholder = i; input.min = '1';
+                input.setAttribute('inputmode', 'decimal'); input.dataset.index = i;
                 input.addEventListener('input', function(e) {
                     calculateTotals();
-                    if (e.target.value && e.target.value.length >= 1) {
-                        const next = document.querySelector(`input[data-index="${parseInt(e.target.dataset.index) + 1}"]`);
+                    if (e.target.value) {
+                        const next = document.querySelector(`input[data-index="${parseInt(e.target.dataset.index)+1}"]`);
                         if (next) setTimeout(() => next.focus(), 80);
                     }
                 });
                 input.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
-                        const next = document.querySelector(`input[data-index="${parseInt(e.target.dataset.index) + 1}"]`);
+                        const next = document.querySelector(`input[data-index="${parseInt(e.target.dataset.index)+1}"]`);
                         if (next) next.focus();
                     }
                 });
@@ -1403,35 +1035,30 @@
             }
         }
 
-        /* ---- RESET SCORES ---- */
         function resetScores() {
             document.getElementById('bulkTotalStrokes').value = '';
             document.querySelectorAll('.score-input').forEach(i => i.value = '');
             calculateTotals();
         }
 
-        /* ---- CALCULATE PLAYING HANDICAP ---- */
+        /* ============================================================
+           CALCULATIONS
+        ============================================================ */
         function calculatePlayingHandicap() {
-            let hcp    = parseFloat(document.getElementById('handicapIndex').value);
-            const slope  = parseFloat(document.getElementById('slopeRating').value);
-            const cr     = parseFloat(document.getElementById('courseRating').value);
-            const par    = parseFloat(document.getElementById('par').value);
-
+            let hcp   = parseFloat(document.getElementById('handicapIndex').value);
+            const slope = parseFloat(document.getElementById('slopeRating').value);
+            const cr    = parseFloat(document.getElementById('courseRating').value);
+            const par   = parseFloat(document.getElementById('par').value);
             if (hcp && slope && cr && par) {
-                let formulaText = '';
-                const originalHcp = hcp;
-                if (isNineHole) {
-                    hcp = Math.round(hcp / 2 * 10) / 10;
-                    formulaText = `9-Loch: (${originalHcp}/2) × (${slope}/113) + (${cr} - ${par})`;
-                } else {
-                    formulaText = `18-Loch: ${hcp} × (${slope}/113) + (${cr} - ${par})`;
-                }
-                const result  = hcp * slope / 113 + (cr - par);
-                const rounded = Math.round(result);
-                formulaText  += ` = ${result.toFixed(2)} → ${rounded} (gerundet)`;
+                let text = '', orig = hcp;
+                if (isNineHole) { hcp = Math.round(hcp/2*10)/10; text = `9-Loch: (${orig}/2) × (${slope}/113) + (${cr} - ${par})`; }
+                else { text = `18-Loch: ${hcp} × (${slope}/113) + (${cr} - ${par})`; }
+                const exact = hcp * slope / 113 + (cr - par);
+                const rounded = Math.round(exact);
+                text += ` = ${exact.toFixed(2)} → ${rounded} (gerundet)`;
                 document.getElementById('playingHandicap').textContent = rounded;
                 document.getElementById('spielvorgabeFormulaInfo').style.display = 'block';
-                document.getElementById('spielvorgabeFormulaText').textContent   = formulaText;
+                document.getElementById('spielvorgabeFormulaText').textContent = text;
                 calculateScoreDifferential();
             } else {
                 document.getElementById('spielvorgabeFormulaInfo').style.display = 'none';
@@ -1439,56 +1066,6 @@
             }
         }
 
-        /* ---- ADD NDB ---- */
-        function addNDB() {
-            const ph          = parseInt(document.getElementById('playingHandicap').textContent);
-            const strokeIndex = parseInt(document.getElementById('strokeIndex').value);
-            const holePar     = parseInt(document.getElementById('holePar').value);
-            if (!isNaN(ph) && strokeIndex && holePar) {
-                let strokes = 0;
-                if (ph >= strokeIndex)      strokes++;
-                if (ph >= 18 + strokeIndex) strokes++;
-                if (ph >= 36 + strokeIndex) strokes++;
-                if (ph >= 54 + strokeIndex) strokes++;
-                ndbEntries.push({ strokeIndex, par: holePar, strokes, ndb: holePar + strokes + 2 });
-                updateNDBList();
-                calculateTotals();
-                document.getElementById('strokeIndex').value = '';
-                document.getElementById('holePar').value     = '';
-            }
-        }
-
-        /* ---- UPDATE NDB LIST ---- */
-        function updateNDBList() {
-            const list = document.getElementById('ndbList');
-            list.innerHTML = '';
-            ndbEntries.forEach((entry, index) => {
-                const div = document.createElement('div');
-                div.className = 'ndb-entry';
-                div.innerHTML = `
-                    <div class="ndb-info">
-                        <div>
-                            <div class="ndb-label">SI ${entry.strokeIndex}</div>
-                            <div class="ndb-value">${entry.ndb}</div>
-                        </div>
-                        <div>
-                            <div class="ndb-label">Par ${entry.par}</div>
-                            <div class="ndb-label">+${entry.strokes} Vorgabe</div>
-                        </div>
-                    </div>
-                    <button class="remove-btn" onclick="removeNDB(${index})">Entfernen</button>`;
-                list.appendChild(div);
-            });
-        }
-
-        /* ---- REMOVE NDB ---- */
-        function removeNDB(index) {
-            ndbEntries.splice(index, 1);
-            updateNDBList();
-            calculateTotals();
-        }
-
-        /* ---- CALCULATE TOTALS ---- */
         function calculateTotals() {
             let strokes = 0;
             if (isScorecardHoleByHole) {
@@ -1504,100 +1081,121 @@
             calculateScoreDifferential();
         }
 
-        /* ---- CALCULATE SCORE DIFFERENTIAL ---- */
         function calculateScoreDifferential() {
             const gross = parseInt(document.getElementById('grossScore').textContent);
             const cr    = parseFloat(document.getElementById('courseRating').value);
             const slope = parseFloat(document.getElementById('slopeRating').value);
             const hcp   = parseFloat(document.getElementById('handicapIndex').value);
-
             if (gross && cr && slope) {
-                let diff, formulaText;
+                let diff, text;
                 if (isNineHole) {
                     diff = (gross - cr) * (113 / slope);
-                    if (hcp) {
-                        diff += (hcp * 0.52) + 1.2;
-                        formulaText = `9-Loch: (${gross} - ${cr}) × (113 / ${slope}) + (${hcp} × 0.52) + 1.2`;
-                    } else {
-                        formulaText = `9-Loch: (${gross} - ${cr}) × (113 / ${slope})`;
-                    }
+                    if (hcp) { diff += (hcp * 0.52) + 1.2; text = `9-Loch: (${gross} - ${cr}) × (113/${slope}) + (${hcp} × 0.52) + 1.2`; }
+                    else { text = `9-Loch: (${gross} - ${cr}) × (113/${slope})`; }
                 } else {
                     diff = (gross - cr) * (113 / slope);
-                    formulaText = `18-Loch: (${gross} - ${cr}) × (113 / ${slope})`;
+                    text = `18-Loch: (${gross} - ${cr}) × (113/${slope})`;
                 }
                 document.getElementById('scoreDifferential').textContent = diff.toFixed(1);
-                document.getElementById('formulaInfo').style.display     = 'block';
-                document.getElementById('formulaText').textContent       = formulaText;
+                document.getElementById('formulaInfo').style.display = 'block';
+                document.getElementById('formulaText').textContent = text;
             } else {
-                document.getElementById('formulaInfo').style.display     = 'none';
+                document.getElementById('formulaInfo').style.display = 'none';
                 document.getElementById('scoreDifferential').textContent = '—';
             }
         }
 
-        /* ---- RESET ALL ---- */
+        /* ============================================================
+           NDB
+        ============================================================ */
+        function addNDB() {
+            const ph    = parseInt(document.getElementById('playingHandicap').textContent);
+            const si    = parseInt(document.getElementById('strokeIndex').value);
+            const hp    = parseInt(document.getElementById('holePar').value);
+            if (!isNaN(ph) && si && hp) {
+                let s = 0;
+                if (ph >= si) s++; if (ph >= 18+si) s++; if (ph >= 36+si) s++; if (ph >= 54+si) s++;
+                ndbEntries.push({ strokeIndex: si, par: hp, strokes: s, ndb: hp+s+2 });
+                updateNDBList(); calculateTotals();
+                document.getElementById('strokeIndex').value = '';
+                document.getElementById('holePar').value = '';
+            }
+        }
+        function updateNDBList() {
+            const list = document.getElementById('ndbList');
+            list.innerHTML = '';
+            ndbEntries.forEach((entry, index) => {
+                const div = document.createElement('div');
+                div.className = 'ndb-entry';
+                div.innerHTML = `
+                    <div class="ndb-info">
+                        <div><div class="ndb-label">SI ${entry.strokeIndex}</div><div class="ndb-value">${entry.ndb}</div></div>
+                        <div><div class="ndb-label">Par ${entry.par}</div><div class="ndb-label">+${entry.strokes} Vorgabe</div></div>
+                    </div>
+                    <button class="remove-btn" onclick="removeNDB(${index})">Entfernen</button>`;
+                list.appendChild(div);
+            });
+        }
+        function removeNDB(index) { ndbEntries.splice(index, 1); updateNDBList(); calculateTotals(); }
+
+        /* ============================================================
+           RESET ALL
+        ============================================================ */
         function resetAll() {
             if (!confirm('Möchten Sie wirklich alle Eingaben zurücksetzen?')) return;
-
             ['handicapIndex','slopeRating','courseRating','par','bulkTotalStrokes','strokeIndex','holePar']
                 .forEach(id => document.getElementById(id).value = '');
             document.querySelectorAll('.score-input').forEach(i => i.value = '');
             document.getElementById('playingHandicap').textContent = '—';
-
-            ndbEntries = [];
-            updateNDBList();
-
+            ndbEntries = []; updateNDBList();
             isNineHole = false;
             document.getElementById('nineHoleToggle').classList.remove('active');
             document.getElementById('nineHoleCheckbox').checked = false;
-
             isScorecardHoleByHole = false;
             document.getElementById('scorecardToggle').classList.remove('active');
             document.getElementById('scorecardCheckbox').checked = false;
             document.getElementById('bulkInput').style.display = 'block';
             document.getElementById('gridInput').style.display = 'none';
             document.getElementById('scoreToggleLabel').firstChild.textContent = 'Gesamte Schlagzahl';
-
-            document.getElementById('totalStrokes').textContent   = '0';
-            document.getElementById('totalNDB').textContent       = '0';
-            document.getElementById('grossScore').textContent     = '0';
+            document.getElementById('totalStrokes').textContent = '0';
+            document.getElementById('totalNDB').textContent = '0';
+            document.getElementById('grossScore').textContent = '0';
             document.getElementById('scoreDifferential').textContent = '—';
-            document.getElementById('formulaInfo').style.display            = 'none';
+            document.getElementById('formulaInfo').style.display = 'none';
             document.getElementById('spielvorgabeFormulaInfo').style.display = 'none';
-
-            document.getElementById('crModeLabel').textContent  = '18-Loch Wert verwenden';
-            document.getElementById('parModeLabel').textContent  = '18-Loch Wert verwenden';
-            document.getElementById('courseRating').placeholder  = 'z.B. 72.5';
-
+            document.getElementById('crModeLabel').textContent = '18-Loch Wert';
+            document.getElementById('parModeLabel').textContent = '18-Loch Wert';
+            document.getElementById('courseRating').placeholder = 'z.B. 72.5';
             document.getElementById('parBtn1').textContent = '70'; document.getElementById('parBtn1').onclick = () => selectPar(70);
             document.getElementById('parBtn2').textContent = '71'; document.getElementById('parBtn2').onclick = () => selectPar(71);
             document.getElementById('parBtn3').textContent = '72'; document.getElementById('parBtn3').onclick = () => selectPar(72);
-            document.querySelectorAll('.par-select-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.par-select-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('handicapIndex').focus();
         }
 
-        /* ---- EVENT LISTENERS ---- */
+        /* ============================================================
+           EVENT LISTENERS
+        ============================================================ */
         document.getElementById('handicapIndex').addEventListener('input', calculatePlayingHandicap);
         document.getElementById('slopeRating').addEventListener('input', calculatePlayingHandicap);
         document.getElementById('courseRating').addEventListener('input', calculatePlayingHandicap);
         document.getElementById('par').addEventListener('input', function() {
-            document.querySelectorAll('.par-select-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.par-select-btn').forEach(b => b.classList.remove('active'));
             calculatePlayingHandicap();
         });
         document.getElementById('handicapIndex').addEventListener('input', calculateScoreDifferential);
         document.getElementById('bulkTotalStrokes').addEventListener('input', calculateTotals);
 
-        /* Close menu when clicking outside */
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('slideMenu');
             const btn  = document.getElementById('hamburgerBtn');
             if (menu.classList.contains('active') && !menu.contains(e.target) && !btn.contains(e.target)) toggleMenu();
         });
 
-        /* Info icon touch/click support for mobile */
         document.querySelectorAll('.info-icon').forEach(icon => {
             icon.addEventListener('click', function(e) {
                 e.stopPropagation();
-                document.querySelectorAll('.info-icon.active').forEach(other => { if (other !== icon) other.classList.remove('active'); });
+                document.querySelectorAll('.info-icon.active').forEach(o => { if (o !== icon) o.classList.remove('active'); });
                 icon.classList.toggle('active');
             });
         });
@@ -1605,7 +1203,9 @@
             if (!e.target.closest('.info-icon')) document.querySelectorAll('.info-icon.active').forEach(i => i.classList.remove('active'));
         });
 
-        /* ---- INIT ---- */
+        /* ============================================================
+           INIT
+        ============================================================ */
         initializeScoreInputs();
     </script>
 </body>
