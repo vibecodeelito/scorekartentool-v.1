@@ -3,418 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt | Scorekarten Tool</title>
+    <title>Kontakt — Scorekarten Tool</title>
+    <meta name="description" content="Kontaktieren Sie den Entwickler des Scorekarten Tools. Fragen, Feedback oder Support — wir sind für Sie da.">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS-Stile kopiert von index.html/aboutus.html */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --black:       #0A0A0A;
+            --white:       #FAFAFA;
+            --surface:     #FFFFFF;
+            --gray-50:     #F6F6F6;
+            --gray-100:    #EBEBEB;
+            --gray-200:    #D4D4D4;
+            --gray-400:    #9A9A9A;
+            --gray-600:    #636363;
+            --accent:      #94C11F;
+            --accent-dark: #7AA819;
+            --nav-h:       64px;
+            --r:           14px;
+            --r-sm:        8px;
+            --ease:        cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Outfit', sans-serif;
-            background: #f5f7f9;
-            color: #004928;
+            background: var(--white);
+            color: var(--black);
             min-height: 100vh;
-            padding: 0;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
+        ::selection { background: var(--accent); color: white; }
 
-        /* Hamburger Menu Button */
+        /* NAV */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
+            background: rgba(250, 250, 250, 0.82);
+            backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06); z-index: 1000;
+            transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease);
+        }
+        .nav.scrolled { background: rgba(250,250,250,0.97); box-shadow: 0 1px 40px rgba(0,0,0,0.06); }
+        .nav-inner {
+            max-width: 1280px; margin: 0 auto; height: 100%;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 36px;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--black); }
+        .nav-logo img { height: 30px; width: 30px; object-fit: contain; }
+        .nav-logo-text { font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; }
+        .nav-links { display: flex; gap: 4px; align-items: center; }
+        .nav-links a {
+            font-size: 0.875rem; font-weight: 400; color: var(--gray-600);
+            text-decoration: none; padding: 6px 14px; border-radius: 20px; transition: all 0.2s ease;
+        }
+        .nav-links a:hover { color: var(--black); background: var(--gray-100); }
+        .nav-links a.active { color: var(--black); font-weight: 500; }
+        .nav-right { display: flex; align-items: center; gap: 14px; }
+        .lang-switcher { display: flex; gap: 2px; background: var(--gray-100); border-radius: 20px; padding: 3px; }
+        .lang-switcher a {
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; color: var(--gray-600);
+            text-decoration: none; padding: 4px 10px; border-radius: 16px; transition: all 0.2s ease;
+        }
+        .lang-switcher a.active { background: var(--black); color: var(--white); }
+        .lang-switcher a:not(.active):hover { color: var(--black); }
         .hamburger-btn {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            z-index: 1002;
+            display: none; background: none; border: none; cursor: pointer;
+            padding: 6px; flex-direction: column; gap: 5px; border-radius: var(--r-sm); z-index: 1002;
         }
         .hamburger-btn span {
-            display: block;
-            width: 24px;
-            height: 3px;
-            background: #5A5C62;
-            border-radius: 2px;
-            transition: all 0.3s ease;
+            display: block; width: 22px; height: 1.5px; background: var(--black);
+            transition: all 0.3s var(--ease); transform-origin: center;
         }
-        .hamburger-btn:hover span {
-            background: #004928;
-        }
-        .hamburger-btn.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-        .hamburger-btn.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger-btn.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
+        .hamburger-btn.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .hamburger-btn.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger-btn.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-        /* Slide-out Menu */
-        .slide-menu {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 300px;
-            height: 100vh;
-            background: white;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1001;
-            transition: left 0.3s ease;
-            overflow-y: auto;
-            padding: 60px 20px 20px;
-        }
-        .slide-menu.active {
-            left: 0;
-        }
-
+        /* MOBILE MENU */
         .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
+        .menu-overlay.active { opacity: 1; visibility: visible; }
+        .slide-menu {
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
+            background: var(--black); z-index: 1001; transition: right 0.4s var(--ease);
+            padding: calc(var(--nav-h) + 28px) 24px 40px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto;
         }
-
+        .slide-menu.active { right: 0; }
         .menu-item {
-            padding: 15px 10px;
-            color: #004928;
-            text-decoration: none;
-            display: block;
-            font-weight: 600;
-            border-bottom: 1px solid #e0e0e0;
-            transition: background 0.2s;
+            display: block; padding: 13px 16px; color: rgba(255,255,255,0.55);
+            text-decoration: none; font-size: 0.9375rem; font-weight: 300; border-radius: var(--r-sm); transition: all 0.2s ease;
         }
-        .menu-item:hover {
-            background: #f5f7f9;
+        .menu-item:hover, .menu-item.active-page { color: white; background: rgba(255,255,255,0.07); }
+        .menu-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 10px 0; }
+        .menu-lang { display: flex; gap: 8px; padding: 16px; margin-top: auto; }
+        .menu-lang a {
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; color: rgba(255,255,255,0.35);
+            text-decoration: none; padding: 6px 12px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.12); transition: all 0.2s ease;
         }
-        /* Active Contact Item */
-        .menu-item.active-kontakt {
-            background: #004928;
-            color: white;
+        .menu-lang a.active { color: white; border-color: rgba(255,255,255,0.5); }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: calc(var(--nav-h) + 80px) 36px 80px;
+            background: var(--black); text-align: center; position: relative; overflow: hidden;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 0%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 0%, transparent 100%);
+        }
+        .page-hero::after {
+            content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(ellipse, rgba(148,193,31,0.06) 0%, transparent 60%); pointer-events: none;
+        }
+        .page-hero-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+        .page-eyebrow {
+            display: inline-block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+            opacity: 0; animation: fadeUp 0.8s var(--ease) 0.1s forwards;
+        }
+        .page-title {
+            font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800; letter-spacing: -0.04em;
+            color: white; line-height: 1.0; margin-bottom: 20px;
+            opacity: 0; animation: fadeUp 0.9s var(--ease) 0.25s forwards;
+        }
+        .page-subtitle {
+            font-size: 1.0625rem; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 1.75;
+            opacity: 0; animation: fadeUp 0.9s var(--ease) 0.4s forwards;
         }
 
-        /* Sprachbalken */
-        .language-bar {
-            background: #e8ebed;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #d0d3d6;
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        .language-selector {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
 
-        .language-btn {
-            background: transparent;
-            border: none;
-            color: #5A5C62;
-            font-size: 0.875rem;
-            font-weight: 600;
-            font-family: 'Outfit', sans-serif;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
+        /* AD */
+        .ad-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 40px 24px; }
+        .ad-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-400); }
+        .ad-slot { width: 100%; max-width: 728px; min-height: 90px; background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--r-sm); }
 
-        .language-btn.active {
-            background: #004928;
-            color: white;
-        }
-
-        .content-wrapper {
-            padding: 20px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 4px;
-            padding-right: 4px;
-        }
-
-        .title-section {
-            text-align: left;
-            cursor: pointer;
-        }
-
-        .header-logo {
-            height: 60px;
-            width: auto;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #004928;
-            letter-spacing: -0.5px;
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            font-size: 0.875rem;
-            color: #5A5C62;
-            line-height: 1.4;
-        }
-
-        .main-container {
-            max-width: 800px; /* Reduzierte Breite für Text-Content */
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        /* CONTENT */
+        .content-section { max-width: 760px; margin: 0 auto; padding: 80px 28px 100px; }
 
         .card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            background: var(--surface); border: 1px solid var(--gray-100); border-radius: var(--r);
+            padding: 48px 44px; box-shadow: 0 2px 24px rgba(0,0,0,0.04);
+            margin-bottom: 24px; transition: box-shadow 0.3s ease;
         }
-        
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #004928;
-            margin-bottom: 20px;
-        }
+        .card:hover { box-shadow: 0 6px 48px rgba(0,0,0,0.07); }
 
-        h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #004928;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
+        h2 { font-size: 1.875rem; font-weight: 700; letter-spacing: -0.03em; color: var(--black); margin-bottom: 16px; }
+        p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--gray-600); margin-bottom: 20px; }
+        p:last-child { margin-bottom: 0; }
 
-        p {
-            line-height: 1.7;
-            color: #5A5C62;
-            margin-bottom: 15px;
-        }
-
-        .highlight {
-            font-weight: 700;
-            color: #004928;
-        }
-        
-        /* Styling for Contact Details */
-        .contact-details {
-            margin-top: 25px;
-            padding: 20px;
-            background: #f0f8ff; /* Light background */
-            border-radius: 8px;
-            border: 1px solid #d0e8ff;
-        }
-
+        /* CONTACT ITEMS */
+        .contact-list { display: flex; flex-direction: column; gap: 0; margin-top: 32px; }
         .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            gap: 15px;
+            display: flex; align-items: center; gap: 20px;
+            padding: 20px 0; border-bottom: 1px solid var(--gray-100);
         }
-
-        .contact-item:last-child {
-            margin-bottom: 0;
+        .contact-item:last-child { border-bottom: none; }
+        .contact-item-icon {
+            width: 44px; height: 44px; background: var(--gray-50); border: 1px solid var(--gray-100);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
-
-        .contact-icon {
-            min-width: 24px;
-            height: 24px;
-            color: #004928; /* Main color */
+        .contact-item-icon svg { width: 20px; height: 20px; color: var(--black); }
+        .contact-item-body { flex: 1; }
+        .contact-item-label {
+            font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--gray-400); margin-bottom: 4px;
         }
+        .contact-item-value { font-size: 1.0625rem; font-weight: 500; color: var(--black); }
+        .contact-item-value a { color: var(--black); text-decoration: none; transition: color 0.2s ease; }
+        .contact-item-value a:hover { color: var(--accent); }
+        .contact-item-meta { font-size: 0.8125rem; font-weight: 300; color: var(--gray-400); margin-top: 2px; }
 
-        .contact-label {
-            font-weight: 700;
-            color: #004928;
-            font-size: 1rem;
-            /* Flex properties for label and value */
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
+        /* RESPONSE TIME BADGE */
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--accent-bg, rgba(148,193,31,0.1));
+            color: var(--accent-dark);
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.03em;
+            padding: 6px 12px; border-radius: 20px;
+            margin-top: 28px; align-self: flex-start;
         }
-        
-        .contact-value {
-             font-weight: 400;
-             color: #5A5C62;
+        .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+
+        /* INFO CARD */
+        .info-card {
+            background: var(--gray-50); border: 1px solid var(--gray-100);
+            border-radius: var(--r-sm); padding: 24px 28px; margin-top: 32px;
         }
+        .info-card-title { font-size: 0.9375rem; font-weight: 600; color: var(--black); margin-bottom: 8px; }
+        .info-card-text { font-size: 0.875rem; font-weight: 300; color: var(--gray-600); line-height: 1.7; }
 
-        .contact-value a {
-            color: #004928;
-            text-decoration: none;
-            transition: color 0.2s;
-            font-weight: 600;
-        }
+        /* FOOTER */
+        .footer { background: var(--black); padding: 72px 36px 44px; }
+        .footer-inner { max-width: 1280px; margin: 0 auto; }
+        .footer-top { display: grid; grid-template-columns: 280px 1fr; gap: 80px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 36px; }
+        .footer-brand { display: flex; flex-direction: column; gap: 14px; }
+        .footer-brand img { height: 34px; width: 34px; object-fit: contain; opacity: 0.85; }
+        .footer-brand-name { font-size: 0.9375rem; font-weight: 600; color: white; letter-spacing: -0.01em; }
+        .footer-brand-sub { font-size: 0.8125rem; font-weight: 300; color: rgba(255,255,255,0.3); line-height: 1.7; }
+        .footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+        .footer-col-title { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 18px; }
+        .footer-link { display: block; font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.48); text-decoration: none; margin-bottom: 11px; transition: color 0.2s ease; }
+        .footer-link:hover { color: white; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .footer-copy { font-size: 0.8125rem; font-weight: 300; color: rgba(255,255,255,0.22); }
+        .footer-version { font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.18); letter-spacing: 0.05em; }
 
-        .contact-value a:hover {
-            color: #94C11F;
-        }
-
-
-        /* Media Queries */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .slide-menu {
-                width: 280px;
-                left: -280px;
-            }
-
-            .content-wrapper {
-                padding: 15px;
-            }
-
-            .header-logo {
-                height: 40px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            .card {
-                padding: 20px;
-            }
+            .nav-inner { padding: 0 20px; }
+            .nav-links { display: none; }
+            .hamburger-btn { display: flex; }
+            .page-hero { padding: calc(var(--nav-h) + 52px) 24px 60px; }
+            .content-section { padding: 56px 20px 80px; }
+            .card { padding: 28px 24px; }
+            .footer-top { grid-template-columns: 1fr; gap: 44px; }
+            .footer-links { grid-template-columns: 1fr 1fr; }
+            .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+        }
+        @media (max-width: 480px) {
+            .nav-logo-text { display: none; }
+            .footer-links { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Menu Overlay -->
+
     <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-    
-    <!-- Slide Menu (Kontakt ist active) -->
+
     <div class="slide-menu" id="slideMenu">
         <a href="index.html" class="menu-item">Startseite</a>
         <a href="aboutus.html" class="menu-item">Über uns</a>
-        <a href="kontakt.html" class="menu-item active-kontakt">Kontakt</a>
-        <a href="hilfe.html" class="menu-item">Hilfe</a>
-        <a href="Berechnung_Handicap.html" class="menu-item">Berechnung Handicap</a>
-        <a href="Berechnung_ScoreDifferential.html" class="menu-item">Berechnung Score Differential</a>
-    </div>
-
-    <!-- Sprachbalken -->
-    <div class="language-bar">
-        <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <div class="language-selector">
-            <a href="index.html" class="language-btn active">DE</a>
-            <a href="index_fr.html" class="language-btn">FR</a>
-            <a href="index_en.html" class="language-btn">EN</a>
+        <a href="kontakt.html" class="menu-item active-page">Kontakt</a>
+        <div class="menu-divider"></div>
+        <a href="/Berechnung_Handicap.html" class="menu-item">Handicap-Formel</a>
+        <a href="/Berechnung_ScoreDifferential.html" class="menu-item">Score Differential-Formel</a>
+        <div class="menu-lang">
+            <a href="index.html" class="active">DE</a>
+            <a href="index_fr.html">FR</a>
         </div>
     </div>
 
-    <div class="content-wrapper">
-        <div class="header">
-            <div class="title-section" onclick="window.location.href='index.html'">
-                <h1>Kontakt</h1>
-                <p class="subtitle">Wir sind für Sie da und freuen uns auf Ihre Nachricht.</p>
-            </div>
-            <a href="index.html">
-                <img src="/images/android-chrome-512x512.png" alt="Logo" class="header-logo">
+    <nav class="nav" id="mainNav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="/images/android-chrome-512x512.png" alt="Logo">
+                <span class="nav-logo-text">Scorekarten Tool</span>
             </a>
+            <div class="nav-links">
+                <a href="index.html">Rechner</a>
+                <a href="aboutus.html">Über uns</a>
+                <a href="kontakt.html" class="active">Kontakt</a>
+            </div>
+            <div class="nav-right">
+                <div class="lang-switcher">
+                    <a href="index.html" class="active">DE</a>
+                    <a href="index_fr.html">FR</a>
+                </div>
+                <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <span class="page-eyebrow">Direkter Kontakt</span>
+            <h1 class="page-title">Wir sind für Sie da.</h1>
+            <p class="page-subtitle">Fragen, Feedback oder Unterstützung — der Entwickler steht Ihnen persönlich zur Verfügung.</p>
+        </div>
+    </section>
+
+    <div class="ad-wrap">
+        <span class="ad-label">Anzeige</span>
+        <div class="ad-slot">
+            <!-- Google AdSense: Leaderboard 728×90 -->
+        </div>
+    </div>
+
+    <main class="content-section">
+
+        <div class="card reveal">
+            <h2>Kontaktmöglichkeiten</h2>
+            <p>
+                Haben Sie Fragen, Feedback oder benötigen Sie Unterstützung bei der Berechnung Ihres Handicaps oder Score Differentials? Da es sich um ein privates Projekt handelt, steht Ihnen der Entwickler direkt zur Verfügung.
+            </p>
+
+            <div class="contact-list">
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="contact-item-body">
+                        <div class="contact-item-label">Ansprechperson</div>
+                        <div class="contact-item-value">Noël Ledermann</div>
+                        <div class="contact-item-meta">Entwickler &middot; Migros Golfcard</div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-7.58-7.58A19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-item-body">
+                        <div class="contact-item-label">Telefon</div>
+                        <div class="contact-item-value">
+                            <a href="tel:+41585680672">+41 58 568 06 72</a>
+                        </div>
+                        <div class="contact-item-meta">Mo–Fr, 9:00–17:00 Uhr</div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                    </div>
+                    <div class="contact-item-body">
+                        <div class="contact-item-label">E-Mail</div>
+                        <div class="contact-item-value">
+                            <a href="mailto:noel.ledermann@migrosgolf.ch">noel.ledermann@migrosgolf.ch</a>
+                        </div>
+                        <div class="contact-item-meta">Bevorzugter Kontaktweg</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Antwort in der Regel innerhalb von 1–2 Werktagen
+            </div>
         </div>
 
-        <div class="main-container">
-            <div class="card">
-                <h2>Kontaktmöglichkeiten</h2>
-
-                <p>
-                    Haben Sie Fragen, Feedback oder benötigen Sie Unterstützung bei der Berechnung Ihres Handicaps oder Score Differentials? Bitte zögern Sie nicht, uns direkt zu kontaktieren.
-                </p>
-
-                <p>
-                    Da es sich um ein privates Projekt handelt, steht Ihnen der Entwickler Noël Ledermann direkt zur Verfügung.
-                </p>
-                
-                <div class="contact-details">
-                    <h3>Ihre Ansprechperson</h3>
-
-                    <div class="contact-item">
-                        <!-- SVG Icon für Person -->
-                        <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        <div class="contact-label">
-                            Name
-                            <span class="contact-value">Noël Ledermann</span>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <!-- SVG Icon für Telefon -->
-                        <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-7.58-7.58A19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        <div class="contact-label">
-                            Telefon
-                            <span class="contact-value">
-                                <a href="tel:+41585680672">+41 58 568 06 72</a>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <!-- SVG Icon für E-Mail -->
-                        <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                        <div class="contact-label">
-                            E-Mail
-                            <span class="contact-value">
-                                <a href="mailto:noel.ledermann@migrosgolf.ch">noel.ledermann@migrosgolf.ch</a>
-                            </span>
-                        </div>
-                    </div>
+        <div class="card reveal reveal-d1">
+            <div class="info-card">
+                <div class="info-card-title">Privates Projekt</div>
+                <div class="info-card-text">
+                    Das Scorekarten Tool ist ein privates Projekt und wird in der Freizeit gepflegt. Bitte beachten Sie, dass die Reaktionszeit variieren kann. Für dringende Golf-Angelegenheiten wenden Sie sich bitte direkt an Ihren Golfclub oder die Migros Golfcard.
                 </div>
             </div>
         </div>
-    </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="/images/android-chrome-512x512.png" alt="Scorekarten Tool">
+                    <div class="footer-brand-name">Scorekarten Tool</div>
+                    <div class="footer-brand-sub">Professionelle WHS-Berechnungen für Golfspieler in der Schweiz und darüber hinaus.</div>
+                </div>
+                <div class="footer-links">
+                    <div>
+                        <div class="footer-col-title">Rechner</div>
+                        <a href="index.html" class="footer-link">Startseite</a>
+                        <a href="/Berechnung_Handicap.html" class="footer-link">Handicap-Formel</a>
+                        <a href="/Berechnung_ScoreDifferential.html" class="footer-link">Score Differential</a>
+                    </div>
+                    <div>
+                        <div class="footer-col-title">Unternehmen</div>
+                        <a href="aboutus.html" class="footer-link">Über uns</a>
+                        <a href="kontakt.html" class="footer-link">Kontakt</a>
+                    </div>
+                    <div>
+                        <div class="footer-col-title">Sprache</div>
+                        <a href="index.html" class="footer-link">Deutsch</a>
+                        <a href="index_fr.html" class="footer-link">Français</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copy">© 2025 Noël Ledermann &middot; Migros Golf</span>
+                <span class="footer-version">Version 2.2 &middot; Stand 18.11.2025</span>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Hamburger Menu Toggle
+        window.addEventListener('scroll', () => {
+            document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
         function toggleMenu() {
-            const menu = document.getElementById('slideMenu');
+            const menu    = document.getElementById('slideMenu');
             const overlay = document.getElementById('menuOverlay');
-            const btn = document.getElementById('hamburgerBtn');
-            
+            const btn     = document.getElementById('hamburgerBtn');
             menu.classList.toggle('active');
             overlay.classList.toggle('active');
             btn.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
         }
-
-        // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('slideMenu');
-            const btn = document.getElementById('hamburgerBtn');
-            
-            if (menu.classList.contains('active') && 
-                !menu.contains(e.target) && 
-                !btn.contains(e.target)) {
-                toggleMenu();
-            }
+            const btn  = document.getElementById('hamburgerBtn');
+            if (menu.classList.contains('active') && !menu.contains(e.target) && !btn.contains(e.target)) toggleMenu();
         });
     </script>
 </body>
