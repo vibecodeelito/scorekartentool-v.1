@@ -14,60 +14,68 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg:          #f8f8f8;
-            --bg-2:        #f0f0f0;
-            --bg-3:        #ffffff;
-            --bg-4:        #f5f5f5;
-            --border:      rgba(0, 0, 0, 0.08);
-            --border-mid:  rgba(0, 0, 0, 0.15);
-            --white:       #1a1a1a;
-            --gray:        #555555;
-            --accent:      #16a34a;
-            --accent-dark: #15803d;
-            --accent-bg:   rgba(22, 163, 74, 0.10);
-            --accent-glow: rgba(22, 163, 74, 0.22);
+            --bg:          #FAFAFA;
+            --bg-2:        #F0F0F2;
+            --bg-3:        #FFFFFF;
+            --bg-4:        #F5F5F7;
+            --border:      rgba(0, 0, 0, 0.06);
+            --border-mid:  rgba(0, 0, 0, 0.12);
+            --white:       #1D1D1F;
+            --gray:        #6E6E73;
+            --accent:      #34A853;
+            --accent-dark: #2D9249;
+            --accent-bg:   rgba(52, 168, 83, 0.08);
+            --accent-glow: rgba(52, 168, 83, 0.15);
             --teal:        #059669;
             --apricot:     #65a30d;
-            --nav-bg:      rgba(248, 248, 248, 0.85);
-            --nav-bg-scroll: rgba(248, 248, 248, 0.97);
-            --nav-shadow:  0 1px 32px rgba(0, 0, 0, 0.06);
-            --overlay-bg:  rgba(0, 0, 0, 0.3);
-            --subtle-bg:   rgba(0, 0, 0, 0.05);
-            --subtle-hover:rgba(0, 0, 0, 0.08);
-            --text-dim:    rgba(0, 0, 0, 0.55);
-            --text-dimmer: rgba(0, 0, 0, 0.35);
-            --text-faint:  rgba(0, 0, 0, 0.2);
-            --selection-color: #ffffff;
+            --nav-bg:      rgba(250, 250, 250, 0.82);
+            --nav-bg-scroll: rgba(250, 250, 250, 0.96);
+            --nav-shadow:  0 1px 12px rgba(0, 0, 0, 0.04);
+            --overlay-bg:  rgba(0, 0, 0, 0.25);
+            --subtle-bg:   rgba(0, 0, 0, 0.04);
+            --subtle-hover:rgba(0, 0, 0, 0.06);
+            --text-dim:    rgba(0, 0, 0, 0.50);
+            --text-dimmer: rgba(0, 0, 0, 0.30);
+            --text-faint:  rgba(0, 0, 0, 0.15);
+            --selection-color: #FFFFFF;
+            --danger:      #E5484D;
+            --danger-bg:   rgba(229, 72, 77, 0.06);
+            --tooltip-bg:  #1D1D1F;
+            --tooltip-fg:  #FAFAFA;
             --nav-h:       64px;
             --r:           14px;
             --r-sm:        8px;
             --ease:        cubic-bezier(0.16, 1, 0.3, 1);
         }
         [data-theme="dark"] {
-            --bg:          #0a0a0a;
-            --bg-2:        #111111;
-            --bg-3:        #161616;
-            --bg-4:        #1c1c1c;
-            --border:      rgba(255, 255, 255, 0.08);
-            --border-mid:  rgba(255, 255, 255, 0.15);
-            --white:       #f0f0f0;
-            --gray:        #888888;
-            --accent:      #4ade80;
-            --accent-dark: #22c55e;
+            --bg:          #111113;
+            --bg-2:        #1C1C1E;
+            --bg-3:        #222224;
+            --bg-4:        #2A2A2C;
+            --border:      rgba(255, 255, 255, 0.06);
+            --border-mid:  rgba(255, 255, 255, 0.12);
+            --white:       #E5E5E7;
+            --gray:        #8E8E93;
+            --accent:      #4ADE80;
+            --accent-dark: #34D072;
             --accent-bg:   rgba(74, 222, 128, 0.10);
-            --accent-glow: rgba(74, 222, 128, 0.22);
+            --accent-glow: rgba(74, 222, 128, 0.18);
             --teal:        #6ee7b7;
             --apricot:     #a3e635;
-            --nav-bg:      rgba(10, 10, 10, 0.85);
-            --nav-bg-scroll: rgba(10, 10, 10, 0.97);
-            --nav-shadow:  0 1px 32px rgba(0, 0, 0, 0.4);
-            --overlay-bg:  rgba(0, 0, 0, 0.6);
-            --subtle-bg:   rgba(255, 255, 255, 0.07);
-            --subtle-hover:rgba(255, 255, 255, 0.06);
-            --text-dim:    rgba(255, 255, 255, 0.55);
-            --text-dimmer: rgba(255, 255, 255, 0.35);
-            --text-faint:  rgba(255, 255, 255, 0.2);
-            --selection-color: #0a0a0a;
+            --nav-bg:      rgba(17, 17, 19, 0.82);
+            --nav-bg-scroll: rgba(17, 17, 19, 0.96);
+            --nav-shadow:  0 1px 12px rgba(0, 0, 0, 0.3);
+            --overlay-bg:  rgba(0, 0, 0, 0.50);
+            --subtle-bg:   rgba(255, 255, 255, 0.06);
+            --subtle-hover:rgba(255, 255, 255, 0.08);
+            --text-dim:    rgba(255, 255, 255, 0.50);
+            --text-dimmer: rgba(255, 255, 255, 0.30);
+            --text-faint:  rgba(255, 255, 255, 0.15);
+            --selection-color: #111113;
+            --danger:      #F27474;
+            --danger-bg:   rgba(242, 116, 116, 0.08);
+            --tooltip-bg:  #E5E5E7;
+            --tooltip-fg:  #111113;
         }
         .theme-toggle {
             background: var(--subtle-bg); border: 1px solid var(--border);
@@ -114,13 +122,13 @@
         /* MOBILE MENU */
         .menu-overlay { position: fixed; inset: 0; background: var(--overlay-bg); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
         .menu-overlay.active { opacity: 1; visibility: visible; }
-        .slide-menu { position: fixed; top: 0; right: -320px; width: 300px; height: 100vh; background: #111111; border-left: 1px solid rgba(255,255,255,0.15); z-index: 1001; transition: right 0.4s var(--ease); padding: calc(var(--nav-h) + 28px) 24px 40px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
+        .slide-menu { position: fixed; top: 0; right: -320px; width: 300px; height: 100vh; background: var(--bg-2); border-left: 1px solid var(--border-mid); z-index: 1001; transition: right 0.4s var(--ease); padding: calc(var(--nav-h) + 28px) 24px 40px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
         .slide-menu.active { right: 0; }
-        .menu-item { display: block; padding: 13px 16px; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.9375rem; font-weight: 300; border-radius: var(--r-sm); transition: all 0.2s ease; }
+        .menu-item { display: block; padding: 13px 16px; color: var(--text-dim); text-decoration: none; font-size: 0.9375rem; font-weight: 300; border-radius: var(--r-sm); transition: all 0.2s ease; }
         .menu-item:hover, .menu-item.active-page { color: var(--white); background: var(--subtle-bg); }
         .menu-divider { height: 1px; background: var(--border-mid); margin: 10px 0; }
         .menu-lang { display: flex; gap: 8px; padding: 16px; margin-top: auto; }
-        .menu-lang a { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text-dim); text-decoration: none; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s ease; }
+        .menu-lang a { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text-dim); text-decoration: none; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-mid); transition: all 0.2s ease; }
         .menu-lang a.active { color: var(--selection-color); border-color: var(--accent); background: var(--accent); }
 
         /* PAGE HERO */
@@ -134,7 +142,7 @@
         .page-hero-content { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
         .page-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 22px; opacity: 0; animation: fadeUp 0.8s var(--ease) 0.1s forwards; }
         .eyebrow-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; }
-        .page-title { font-size: clamp(2.75rem, 7vw, 5rem); font-weight: 800; letter-spacing: -0.045em; color: #f0f0f0; line-height: 0.95; margin-bottom: 22px; opacity: 0; animation: fadeUp 0.9s var(--ease) 0.25s forwards; }
+        .page-title { font-size: clamp(2.75rem, 7vw, 5rem); font-weight: 800; letter-spacing: -0.045em; color: var(--white); line-height: 0.95; margin-bottom: 22px; opacity: 0; animation: fadeUp 0.9s var(--ease) 0.25s forwards; }
         .page-subtitle { font-size: 1.0625rem; font-weight: 300; color: var(--text-dim); line-height: 1.75; opacity: 0; animation: fadeUp 0.9s var(--ease) 0.4s forwards; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -152,7 +160,7 @@
 
         /* AD */
         .ad-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 40px 24px; }
-        .ad-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+        .ad-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); }
         .ad-slot { width: 100%; max-width: 728px; min-height: 90px; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--r-sm); }
 
         /* CONTENT */
@@ -252,6 +260,10 @@
                 <a href="kontakt_fr.html" class="active">Contact</a>
             </div>
             <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Theme wechseln">
+                    <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
                 <div class="lang-switcher">
                     <a href="kontakt.html">DE</a>
                     <a href="kontakt_fr.html" class="active">FR</a>
