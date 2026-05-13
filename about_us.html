@@ -9,9 +9,65 @@
     <link rel="icon" type="image/png" sizes="16x16" href="https://mcusercontent.com/39ee075a12433f7ae22a01c8b/images/c21bb8d5-3362-20fc-90d5-7c8ccca96d07.png">
     <link rel="manifest" href="site.webmanifest">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9829683139148070" crossorigin="anonymous"></script>
+    <script>(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',t)})();</script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS-Stile kopiert von index.html */
+        :root {
+            --bg:          #f8f8f8;
+            --bg-2:        #f0f0f0;
+            --bg-3:        #ffffff;
+            --bg-4:        #f5f5f5;
+            --border:      rgba(0, 0, 0, 0.08);
+            --border-mid:  rgba(0, 0, 0, 0.15);
+            --white:       #1a1a1a;
+            --gray:        #555555;
+            --accent:      #16a34a;
+            --accent-dark: #15803d;
+            --accent-bg:   rgba(22, 163, 74, 0.10);
+            --accent-glow: rgba(22, 163, 74, 0.22);
+            --overlay-bg:  rgba(0, 0, 0, 0.3);
+            --subtle-bg:   rgba(0, 0, 0, 0.05);
+            --subtle-hover:rgba(0, 0, 0, 0.08);
+            --text-dim:    rgba(0, 0, 0, 0.55);
+            --text-dimmer: rgba(0, 0, 0, 0.35);
+            --selection-color: #ffffff;
+        }
+        [data-theme="dark"] {
+            --bg:          #0a0a0a;
+            --bg-2:        #111111;
+            --bg-3:        #161616;
+            --bg-4:        #1c1c1c;
+            --border:      rgba(255, 255, 255, 0.08);
+            --border-mid:  rgba(255, 255, 255, 0.15);
+            --white:       #f0f0f0;
+            --gray:        #888888;
+            --accent:      #4ade80;
+            --accent-dark: #22c55e;
+            --accent-bg:   rgba(74, 222, 128, 0.10);
+            --accent-glow: rgba(74, 222, 128, 0.22);
+            --overlay-bg:  rgba(0, 0, 0, 0.6);
+            --subtle-bg:   rgba(255, 255, 255, 0.07);
+            --subtle-hover:rgba(255, 255, 255, 0.06);
+            --text-dim:    rgba(255, 255, 255, 0.55);
+            --text-dimmer: rgba(255, 255, 255, 0.35);
+            --selection-color: #0a0a0a;
+        }
+        .theme-toggle {
+            background: var(--subtle-bg); border: 1px solid var(--border);
+            border-radius: 50%; width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; padding: 0; flex-shrink: 0;
+        }
+        .theme-toggle:hover { background: var(--subtle-hover); border-color: var(--border-mid); }
+        .theme-toggle svg { width: 16px; height: 16px; color: var(--gray); }
+        .theme-toggle:hover svg { color: var(--accent); }
+        .theme-icon-sun { display: none; }
+        [data-theme="dark"] .theme-icon-sun { display: block; }
+        [data-theme="dark"] .theme-icon-moon { display: none; }
+        html.theme-transition, html.theme-transition *, html.theme-transition *::before, html.theme-transition *::after {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -20,12 +76,14 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            background: #0a0a0a;
-            color: #f0f0f0;
+            background: var(--bg);
+            color: var(--white);
             min-height: 100vh;
             padding: 0;
             overflow-x: hidden;
         }
+
+        ::selection { background: var(--accent); color: var(--selection-color); }
 
         /* Hamburger Menu Button */
         .hamburger-btn {
@@ -42,12 +100,12 @@
             display: block;
             width: 24px;
             height: 3px;
-            background: #888888;
+            background: var(--gray);
             border-radius: 2px;
             transition: all 0.3s ease;
         }
         .hamburger-btn:hover span {
-            background: #4ade80;
+            background: var(--accent);
         }
         .hamburger-btn.active span:nth-child(1) {
             transform: rotate(45deg) translate(6px, 6px);
@@ -66,7 +124,7 @@
             left: -300px;
             width: 300px;
             height: 100vh;
-            background: #161616;
+            background: var(--bg-3);
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
             z-index: 1001;
             transition: left 0.3s ease;
@@ -83,7 +141,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: var(--overlay-bg);
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
@@ -96,25 +154,25 @@
 
         .menu-item {
             padding: 15px 10px;
-            color: #f0f0f0;
+            color: var(--white);
             text-decoration: none;
             display: block;
             font-weight: 600;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid var(--border);
             transition: background 0.2s;
         }
         .menu-item:hover {
-            background: #0a0a0a;
+            background: var(--subtle-hover);
         }
 
         /* Sprachbalken */
         .language-bar {
-            background: #111111;
+            background: var(--bg-2);
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid var(--border);
         }
 
         .language-selector {
@@ -126,7 +184,7 @@
         .language-btn {
             background: transparent;
             border: none;
-            color: #888888;
+            color: var(--gray);
             font-size: 0.875rem;
             font-weight: 600;
             font-family: 'Outfit', sans-serif;
@@ -138,8 +196,8 @@
         }
 
         .language-btn.active {
-            background: #4ade80;
-            color: white;
+            background: var(--accent);
+            color: var(--selection-color);
         }
 
         .content-wrapper {
@@ -171,68 +229,68 @@
         h1 {
             font-size: 2rem;
             font-weight: 700;
-            color: #f0f0f0;
+            color: var(--white);
             letter-spacing: -0.5px;
             margin-bottom: 5px;
         }
 
         .subtitle {
             font-size: 0.875rem;
-            color: #888888;
+            color: var(--gray);
             line-height: 1.4;
         }
 
         .main-container {
-            max-width: 800px; /* Reduzierte Breite für Text-Content */
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         .card {
-            background: #161616;
-            border: 1px solid rgba(255,255,255,0.08);
+            background: var(--bg-3);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        
+
         h2 {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #f0f0f0;
+            color: var(--white);
             margin-bottom: 20px;
         }
 
         h3 {
             font-size: 1.15rem;
             font-weight: 700;
-            color: #f0f0f0;
+            color: var(--white);
             margin-top: 25px;
             margin-bottom: 10px;
         }
 
         p {
             line-height: 1.7;
-            color: #888888;
+            color: var(--gray);
             margin-bottom: 15px;
         }
 
         .highlight {
             font-weight: 700;
-            color: #f0f0f0;
+            color: var(--white);
         }
 
         .developer-info {
             margin-top: 30px;
             padding: 20px;
-            background: #1c1c1c;
+            background: var(--bg-4);
             border-radius: 8px;
-            border-left: 4px solid #4ade80;
-            display: flex; /* Flexbox für Bild und Text */
+            border-left: 4px solid var(--accent);
+            display: flex;
             gap: 20px;
             align-items: flex-start;
         }
-        
+
         .developer-text {
             flex-grow: 1;
         }
@@ -240,17 +298,17 @@
         .developer-info p {
             margin-bottom: 5px;
         }
-        
+
         .developer-image-container {
             width: 120px;
             height: 120px;
             min-width: 120px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid #4ade80;
+            border: 3px solid var(--accent);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         }
-        
+
         .developer-image {
             width: 100%;
             height: 100%;
@@ -275,17 +333,17 @@
             h1 {
                 font-size: 1.5rem;
             }
-            
+
             .card {
                 padding: 20px;
             }
-            
+
             .developer-info {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
             }
-            
+
             .developer-image-container {
                 margin-bottom: 15px;
             }
@@ -295,7 +353,7 @@
 <body>
     <!-- Menu Overlay -->
     <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-    
+
     <!-- Slide Menu (Angepasst, damit "Über uns" active ist) -->
     <div class="slide-menu" id="slideMenu">
         <a href="index.html" class="menu-item">Startseite</a>
@@ -314,6 +372,10 @@
             <span></span>
         </button>
         <div class="language-selector">
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Theme wechseln">
+                <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
             <a href="index.html" class="language-btn active">DE</a>
             <a href="index_fr.html" class="language-btn">FR</a>
         </div>
@@ -341,7 +403,7 @@
                 <p>
                     Hier können Sie schnell und ohne komplizierte Apps Ihr Course Handicap (Spielvorgabe), Ihr gewertetes Bruttoergebnis (Adjusted Gross Score) und vor allem Ihren <span class="highlight">Score Differential</span> berechnen. Dieses Differential ist der Schlüsselwert, der bestimmt, wie sich Ihre Runde auf Ihren Handicap-Index auswirkt.
                 </p>
-                
+
                 <div class="developer-info">
                     <div class="developer-image-container">
                         <img src="https://mcusercontent.com/39ee075a12433f7ae22a01c8b/images/8323dc9c-d527-f9c3-74d9-5b3cf3dada62.jpeg" alt="Noël Ledermann" class="developer-image">
@@ -361,28 +423,35 @@
     </div>
 
     <script>
-        // Hamburger Menu Toggle
         function toggleMenu() {
             const menu = document.getElementById('slideMenu');
             const overlay = document.getElementById('menuOverlay');
             const btn = document.getElementById('hamburgerBtn');
-            
+
             menu.classList.toggle('active');
             overlay.classList.toggle('active');
             btn.classList.toggle('active');
         }
 
-        // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('slideMenu');
             const btn = document.getElementById('hamburgerBtn');
-            
-            if (menu.classList.contains('active') && 
-                !menu.contains(e.target) && 
+
+            if (menu.classList.contains('active') &&
+                !menu.contains(e.target) &&
                 !btn.contains(e.target)) {
                 toggleMenu();
             }
         });
+
+        function toggleTheme() {
+            var current = document.documentElement.getAttribute('data-theme') || 'light';
+            var next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.classList.add('theme-transition');
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            setTimeout(function() { document.documentElement.classList.remove('theme-transition'); }, 400);
+        }
     </script>
 </body>
 </html>
